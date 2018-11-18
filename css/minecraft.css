@@ -1,0 +1,34 @@
+#world{
+    height: 1000px;
+    width: 1000px;
+    border: 1px solid black;
+    display: grid;
+    grid-template-columns: repeat(100, 1fr)
+}
+.tile{
+    height: 10px;
+    width: 10px;
+    border:1px solid black;
+}
+.sky{
+    background-color: rgb(136, 228, 231);
+}
+.cloud{
+    background-color: white;
+}
+.tree{
+    background-image: url(../img/tree.jpg);
+    background-size: cover;
+}
+.ground{
+    background-image: url(../img/ground.jpg);
+    background-size: cover;
+}
+.grass{
+    background-image: url(../img/grass.jpg);
+    background-size: cover;
+}
+.rock{
+    background-image: url(../img/rock.jpg);
+    background-size: cover;
+}
