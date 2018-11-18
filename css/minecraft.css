@@ -1,9 +1,9 @@
 #world{
-    height: 1000px;
-    width: 1000px;
+    height: 100px;
+    width: 100px;
     border: 1px solid black;
     display: grid;
-    grid-template-columns: repeat(100, 1fr)
+    grid-template-columns: repeat(10, 1fr)
 }
 .tile{
     height: 10px;
@@ -30,5 +30,9 @@
 }
 .rock{
     background-image: url(../img/rock.jpg);
+    background-size: cover;
+}
+.trunk{
+    background-image: url(../img/trunk.jpg);
     background-size: cover;
 }
