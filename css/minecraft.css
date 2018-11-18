@@ -1,13 +1,68 @@
+@font-face {
+    font-family:'Bloxat';
+    src: url(../fonts/BLOXAT.ttf);
+}
+
+body::after {
+    content:"";
+    z-index:-1;
+    background-image:url('../img/start-screen-background.png');
+    background-size:cover;
+    background-repeat: no-repeat;
+    top:0;
+    bottom:0;
+    right:0;
+    left:0;
+    position:fixed;
+}
+
+#start-screen .logo {
+    width:80vw;
+    transform:translate(-50%,-50%);
+    top:30vh;
+    left:50%;
+    position:absolute;
+}
+
+.start-buttons {
+    position:absolute;
+    transform:translate(-50%,-50%);
+    left:50%;
+    top:75%;
+    width:240px;
+}
+
+
+.start-buttons button {
+    box-sizing:border-box;
+    font-size:30px;
+    font-family: Bloxat,sans-serif;
+    text-transform: uppercase;
+    padding:14px 0px;
+    margin:2vh;
+    height:50px;
+    width:200px;
+    background-color:white;
+    border:0;
+}
+
+.start-buttons button:hover {
+    background-color:black;
+    border:3px solid white;
+    color:white;
+    padding:11px;
+}
+
 #world{
-    height: 100px;
-    width: 100px;
+    height: 200px;
+    width: 200px;
     border: 1px solid black;
     display: grid;
     grid-template-columns: repeat(10, 1fr)
 }
 .tile{
-    height: 10px;
-    width: 10px;
+    height: 20px;
+    width: 20px;
     border:1px solid black;
 }
 .sky{
