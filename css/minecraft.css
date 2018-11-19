@@ -103,9 +103,24 @@ body::after {
     background-color:white;
 }
 
+#inventory {
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+}
+
+#inventory span {
+    font-family:Bloxat;
+    font-size:30px;
+}
+
 .tile{
+    box-sizing:border-box;
     height: 30px;
     width: 30px;
+}
+
+#world .tile:hover {
+    border:1px solid white;
 }
 .sky{
     background-color: rgb(136, 228, 231);

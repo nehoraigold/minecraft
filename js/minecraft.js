@@ -32,6 +32,7 @@ game.user = {};
 
 game.start = function () {
     game.world.display();
+    game.user.generateInventory();
     game.user.setDefaults();
     game.user.connectEvents();
 }
@@ -126,6 +127,24 @@ game.user.settingBackTheTile = function () {
         game.user.setDefaults();
     }
 }
+
+game.user.inventory = {
+    rock: 0,
+    tree: 0,
+    trunk: 0,
+    grass: 0,
+    ground: 0
+}
+
+game.user.generateInventory = function() {
+    for (var item in game.user.inventory) {
+        var div = $('<div />').addClass(item).addClass('selected-tile');
+        var span = $('<span/>').text(game.user.inventory[item]);
+        div.append(span);
+        $('#inventory').append(div);
+    }
+}
+
 
 
 $(document).ready(function () {
