@@ -121,10 +121,10 @@ game.user.removeTile = function (tile) {
     tile.removeClass(tile.data("type"));
     tile.addClass("sky");
     tile.on('click', game.user.settingBackTheTile);
-    game.user.selectableTiles.removeClass(game.user.selectableTiles.data("type"));
-    game.user.selectableTiles.data("type", tile.data("type"));
-    game.user.selectableTiles.addClass(tile.data("type"));
-
+    // game.user.selectableTiles.removeClass(game.user.selectableTiles.data("type"));
+    // game.user.selectableTiles.data("type", tile.data("type"));
+    // game.user.selectableTiles.addClass(tile.data("type"));
+    $(".selected-tile." + tile.data("type") + " span").text(game.user.inventory[tile.data("type")]);
 }
 
 game.user.alertButton = function (btn) {
@@ -137,10 +137,13 @@ game.user.alertButton = function (btn) {
 }
 
 game.user.settingBackTheTile = function () {
-    if (game.user.selectedTile !== null) {
-        game.user.inventory[game.user.selectableTiles.data('type')]--;
-        $(this).addClass(game.user.selectableTiles.data("type"));
-        game.user.selectableTiles.removeClass(game.user.selectableTiles.data("type"));
+    if (game.user.selectedTile !== null && game.user.inventory[game.user.selectedTile] > 0) {
+        // game.user.inventory[game.user.selectableTiles.data('type')]--;
+        game.user.inventory[game.user.selectedTile]--;
+        // $(this).addClass(game.user.selectableTiles.data("type"));
+        $(this).addClass(game.user.selectedTile);
+        $(".selected-tile." + game.user.selectedTile + " span").text(game.user.inventory[game.user.selectedTile]);
+        // game.user.selectableTiles.removeClass(game.user.selectableTiles.data("type"));
         game.user.selectableTiles.removeClass("in-use");
     }
 }
@@ -161,7 +164,6 @@ game.user.generateInventory = function () {
         $('#inventory').append(div);
     }
 }
-
 
 
 $(document).ready(function () {
