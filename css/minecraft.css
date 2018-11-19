@@ -131,6 +131,10 @@ body::after {
     background-color: red;
 }
 
+.tool.is-clicked{
+    background-color: blue;
+}
+
 .in-use{
     border:2px solid blue;
 }
