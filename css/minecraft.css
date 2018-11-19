@@ -56,10 +56,8 @@ body::after {
 #world{
     height: 800px;
     width: 800px;
-    border: 1px solid black;
     display: grid;
     grid-template-columns: repeat(20, 1fr);
-    border:1px solid blue;
 }
 
 #side-menu {
@@ -83,9 +81,17 @@ body::after {
 }
 
 .tool img {
-    max-width:120px;
-    max-height:120px;
+    max-height:100px;
     position:absolute;
+}
+
+.tool span {
+    display:inline-block;
+    bottom:0;
+    position:absolute;
+    font-family:Bloxat;
+    text-transform: uppercase;
+    margin:auto;
 }
 
 .selected-tile {
