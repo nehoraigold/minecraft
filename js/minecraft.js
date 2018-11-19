@@ -48,52 +48,49 @@ game.world.display = function () {
 }
 
 game.user.setDefaults = function () {
-    game.user.setDefaultButtons();
-    game.user.selectedTile = null;
+    game.user.tools = $(".tool");
     game.user.axe = $("#axe");
     game.user.pickaxe = $("#pickaxe");
     game.user.shovel = $("#shovel");
+    game.user.tile = $(".tile");
+    game.user.sky = $(".sky");
+    game.user.setToolDefaultData();
+    game.user.selectedTile = null;
     game.user.selectableTiles = $(".selected-tile");
 }
 
-game.user.setDefaultButtons = function(){
-    game.user.axeBtnIsClicked = false;
-    game.user.pickaxeBtnIsClicked = false;
-    game.user.shovelBtnIsClicked = false;
+game.user.setToolDefaultData = function () {
+    game.user.tools.data("isSelected", false);
 }
 
-game.user.connectEvents = function() {
-    game.user.axe.click(function () {
-        game.user.axeBtnIsClicked = true;
-        $(this).addClass("is-clicked");
-    })
-    
-    game.user.pickaxe.click(function () {
-        game.user.pickaxeBtnIsClicked = true;
-        $(this).addClass("is-clicked");
-    })
-    
-    game.user.shovel.click(function () {
-        game.user.shovelBtnIsClicked = true;
-        $(this).addClass("is-clicked");
-    })
-    
-    game.user.selectableTiles.click(function () {
-        game.user.setDefaultButtons();
-        game.user.axe.removeClass("is-clicked");
-        game.user.pickaxe.removeClass("is-clicked");
-        game.user.shovel.removeClass("is-clicked");
-        game.user.selectedTile = $(this).data('type');
-        $(this).addClass("in-use");
-    });
-    $(".tile").on("click", game.user.clickOnTile);
-    $(".sky").on("click", game.user.settingBackTheTile);
+game.user.connectEvents = function () {
+    game.user.tools.click(game.user.selectTool);
+    game.user.selectableTiles.click(game.user.setSelectedTile)
+    game.user.tile.click(game.user.clickOnTile);
+    game.user.sky.click(game.user.settingBackTheTile);
 }
 
+game.user.selectTool = function () {
+    game.user.removeClickedClass();
+    game.user.setToolDefaultData();
+    $(this).addClass("is-clicked");
+    $(this).data("is-selected", true);
+}
+
+game.user.setSelectedTile = function () {
+    game.user.setToolDefaultData();
+    game.user.removeClickedClass();
+    game.user.selectedTile = $(this).data('type');
+    $(this).addClass("in-use");
+}
+
+game.user.removeClickedClass = function () {
+    game.user.tools.removeClass("is-clicked");
+}
 
 game.user.clickOnTile = function () {
     var that = $(this);
-    if (game.user.axeBtnIsClicked) {
+    if (game.user.axe.data("isSelected")) {
         if ($(this).data("type") === "tree" || $(this).data("type") === "trunk") {
             game.user.removeTile(that);
         }
@@ -101,7 +98,7 @@ game.user.clickOnTile = function () {
             game.user.alertButton(game.user.axe);
         }
     }
-    if (game.user.pickaxeBtnIsClicked) {
+    if (game.user.pickaxe.data("is-selected")) {
         if ($(this).data("type") === "rock") {
             game.user.removeTile(that);
         }
@@ -109,7 +106,7 @@ game.user.clickOnTile = function () {
             game.user.alertButton(game.user.pickaxe);
         }
     }
-    if (game.user.shovelBtnIsClicked) {
+    if (game.user.shovel.data("is-selected")) {
         if ($(this).data("type") === "grass" || $(this).data("type") === "ground") {
             game.user.removeTile(that);
         }
@@ -123,11 +120,11 @@ game.user.removeTile = function (tile) {
     game.user.inventory[tile.data("type")]++;
     tile.removeClass(tile.data("type"));
     tile.addClass("sky");
-    tile.on('click',game.user.settingBackTheTile);
+    tile.on('click', game.user.settingBackTheTile);
     game.user.selectableTiles.removeClass(game.user.selectableTiles.data("type"));
     game.user.selectableTiles.data("type", tile.data("type"));
     game.user.selectableTiles.addClass(tile.data("type"));
-    
+
 }
 
 game.user.alertButton = function (btn) {
@@ -156,9 +153,9 @@ game.user.inventory = {
     ground: 0
 }
 
-game.user.generateInventory = function() {
+game.user.generateInventory = function () {
     for (var item in game.user.inventory) {
-        var div = $('<div />').addClass(item).addClass('selected-tile').data('type',item);
+        var div = $('<div />').addClass(item).addClass('selected-tile').data('type', item);
         var span = $('<span/>').text(game.user.inventory[item]);
         div.append(span);
         $('#inventory').append(div);
