@@ -133,6 +133,19 @@ body::after {
     background-image: url(../img/trunk.jpg);
     background-size: cover;
 }
+.sun{
+    background-image: url(../img/sun.jpg);
+    background-size: cover;
+}
+.water{
+    background-image: url(../img/water.jpg);
+    background-size: cover;
+}
+.man{
+    background-color: rgb(136, 228, 231);
+    background-image: url(../img/man.png);
+    background-size: cover;
+}
 
 .tool.alert{
     background-color: red;
