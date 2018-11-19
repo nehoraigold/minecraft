@@ -48,26 +48,41 @@ game.world.display = function () {
 }
 
 game.user.setDefaults = function () {
+    game.user.setDefaultButtons();
+    game.user.selectedTileIsClicked = false;
+    game.user.axe = $("#axe");
+    game.user.pickaxe = $("#pickaxe");
+    game.user.shovel = $("#shovel");
+    game.user.selectedTile = $(".selected-tile");
+}
+
+game.user.setDefaultButtons = function(){
     game.user.axeBtnIsClicked = false;
     game.user.pickaxeBtnIsClicked = false;
     game.user.shovelBtnIsClicked = false;
-    game.user.selectedTileIsClicked = false;
 }
 
 game.user.connectEvents = function() {
-    $("#axe").click(function () {
+    game.user.axe.click(function () {
         game.user.axeBtnIsClicked = true;
+        $(this).addClass("is-clicked");
     })
     
-    $("#pickaxe").click(function () {
+    game.user.pickaxe.click(function () {
         game.user.pickaxeBtnIsClicked = true;
+        $(this).addClass("is-clicked");
     })
     
-    $("#shovel").click(function () {
+    game.user.shovel.click(function () {
         game.user.shovelBtnIsClicked = true;
+        $(this).addClass("is-clicked");
     })
     
-    $(".selected-tile").click(function () {
+    game.user.selectedTile.click(function () {
+        game.user.setDefaultButtons();
+        game.user.axe.removeClass("is-clicked");
+        game.user.pickaxe.removeClass("is-clicked");
+        game.user.shovel.removeClass("is-clicked");
         game.user.selectedTileIsClicked = true;
         $(this).addClass("in-use");
     });
@@ -83,7 +98,7 @@ game.user.clickOnTile = function () {
             game.user.takingOutTheTile(that);
         }
         else {
-            game.user.alertButton($("#axe"));
+            game.user.alertButton(game.user.axe);
         }
     }
     if (game.user.pickaxeBtnIsClicked) {
@@ -91,7 +106,7 @@ game.user.clickOnTile = function () {
             game.user.takingOutTheTile(that);
         }
         else {
-            game.user.alertButton($("#pickaxe"));
+            game.user.alertButton(game.user.pickaxe);
         }
     }
     if (game.user.shovelBtnIsClicked) {
@@ -99,7 +114,7 @@ game.user.clickOnTile = function () {
             game.user.takingOutTheTile(that);
         }
         else {
-            game.user.alertButton($("#shoval"));
+            game.user.alertButton(game.user.shovel);
         }
     }
 }
@@ -107,24 +122,27 @@ game.user.clickOnTile = function () {
 game.user.takingOutTheTile = function (tile) {
     tile.removeClass(tile.data("type"));
     tile.addClass("sky");
-    $(".selected-tile").removeClass($(".selected-tile").data("type"));
-    $(".selected-tile").data("type", tile.data("type"));
-    $(".selected-tile").addClass(tile.data("type"));
+    game.user.selectedTile.removeClass(game.user.selectedTile.data("type"));
+    game.user.selectedTile.data("type", tile.data("type"));
+    game.user.selectedTile.addClass(tile.data("type"));
+    
 }
 
 game.user.alertButton = function (btn) {
+    btn.removeClass("is-clicked")
     btn.addClass("alert");
     setTimeout(function () {
         btn.removeClass("alert");
+        btn.addClass("is-clicked");
     }, 100);
 }
 
 game.user.settingBackTheTile = function () {
     if (game.user.selectedTileIsClicked) {
-        $(this).addClass($(".selected-tile").data("type"));
-        $(".selected-tile").removeClass($(".selected-tile").data("type"));
-        $(".selected-tile").removeClass("in-use");
-        game.user.setDefaults();
+        $(this).addClass(game.user.selectedTile.data("type"));
+        game.user.selectedTile.removeClass(game.user.selectedTile.data("type"));
+        game.user.selectedTile.removeClass("in-use");
+        
     }
 }
 
