@@ -79,6 +79,7 @@ body::after {
     margin-top: 20px;
     background-color:gray;
     position:relative;
+    cursor: pointer;
 }
 
 .tool img {
@@ -101,6 +102,7 @@ body::after {
     margin:auto;
     margin-top:40px;
     background-color:white;
+    cursor: pointer;
 }
 
 #inventory {
