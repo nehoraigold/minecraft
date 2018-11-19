@@ -49,11 +49,11 @@ game.world.display = function () {
 
 game.user.setDefaults = function () {
     game.user.setDefaultButtons();
-    game.user.selectedTileIsClicked = false;
+    game.user.selectedTile = null;
     game.user.axe = $("#axe");
     game.user.pickaxe = $("#pickaxe");
     game.user.shovel = $("#shovel");
-    game.user.selectedTile = $(".selected-tile");
+    game.user.selectableTiles = $(".selected-tile");
 }
 
 game.user.setDefaultButtons = function(){
@@ -78,12 +78,12 @@ game.user.connectEvents = function() {
         $(this).addClass("is-clicked");
     })
     
-    game.user.selectedTile.click(function () {
+    game.user.selectableTiles.click(function () {
         game.user.setDefaultButtons();
         game.user.axe.removeClass("is-clicked");
         game.user.pickaxe.removeClass("is-clicked");
         game.user.shovel.removeClass("is-clicked");
-        game.user.selectedTileIsClicked = true;
+        game.user.selectedTile = $(this).data('type');
         $(this).addClass("in-use");
     });
     $(".tile").on("click", game.user.clickOnTile);
@@ -95,7 +95,7 @@ game.user.clickOnTile = function () {
     var that = $(this);
     if (game.user.axeBtnIsClicked) {
         if ($(this).data("type") === "tree" || $(this).data("type") === "trunk") {
-            game.user.takingOutTheTile(that);
+            game.user.removeTile(that);
         }
         else {
             game.user.alertButton(game.user.axe);
@@ -103,7 +103,7 @@ game.user.clickOnTile = function () {
     }
     if (game.user.pickaxeBtnIsClicked) {
         if ($(this).data("type") === "rock") {
-            game.user.takingOutTheTile(that);
+            game.user.removeTile(that);
         }
         else {
             game.user.alertButton(game.user.pickaxe);
@@ -111,7 +111,7 @@ game.user.clickOnTile = function () {
     }
     if (game.user.shovelBtnIsClicked) {
         if ($(this).data("type") === "grass" || $(this).data("type") === "ground") {
-            game.user.takingOutTheTile(that);
+            game.user.removeTile(that);
         }
         else {
             game.user.alertButton(game.user.shovel);
@@ -119,12 +119,14 @@ game.user.clickOnTile = function () {
     }
 }
 
-game.user.takingOutTheTile = function (tile) {
+game.user.removeTile = function (tile) {
+    game.user.inventory[tile.data("type")]++;
     tile.removeClass(tile.data("type"));
     tile.addClass("sky");
-    game.user.selectedTile.removeClass(game.user.selectedTile.data("type"));
-    game.user.selectedTile.data("type", tile.data("type"));
-    game.user.selectedTile.addClass(tile.data("type"));
+    tile.on('click',game.user.settingBackTheTile);
+    game.user.selectableTiles.removeClass(game.user.selectableTiles.data("type"));
+    game.user.selectableTiles.data("type", tile.data("type"));
+    game.user.selectableTiles.addClass(tile.data("type"));
     
 }
 
@@ -138,11 +140,11 @@ game.user.alertButton = function (btn) {
 }
 
 game.user.settingBackTheTile = function () {
-    if (game.user.selectedTileIsClicked) {
-        $(this).addClass(game.user.selectedTile.data("type"));
-        game.user.selectedTile.removeClass(game.user.selectedTile.data("type"));
-        game.user.selectedTile.removeClass("in-use");
-        
+    if (game.user.selectedTile !== null) {
+        game.user.inventory[game.user.selectableTiles.data('type')]--;
+        $(this).addClass(game.user.selectableTiles.data("type"));
+        game.user.selectableTiles.removeClass(game.user.selectableTiles.data("type"));
+        game.user.selectableTiles.removeClass("in-use");
     }
 }
 
@@ -156,7 +158,7 @@ game.user.inventory = {
 
 game.user.generateInventory = function() {
     for (var item in game.user.inventory) {
-        var div = $('<div />').addClass(item).addClass('selected-tile');
+        var div = $('<div />').addClass(item).addClass('selected-tile').data('type',item);
         var span = $('<span/>').text(game.user.inventory[item]);
         div.append(span);
         $('#inventory').append(div);
