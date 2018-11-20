@@ -33,7 +33,7 @@ body::after {
 }
 
 
-.start-buttons button {
+#start-screen button {
     box-sizing:border-box;
     font-size:30px;
     font-family: Bloxat,sans-serif;
@@ -46,11 +46,46 @@ body::after {
     border:0;
 }
 
-.start-buttons button:hover {
+#start-screen button:hover {
     background-color:black;
     border:3px solid white;
     color:white;
     padding:11px;
+}
+
+#screen{
+    display:none;
+}
+
+#tutorial-modal-container{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top:0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#tutorial-modal-content{
+    background-color: beige;
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translateY(-50%) translateX(-50%);
+    border: 2px solid black;
+    font-family: Bloxat,sans-serif;
+    font-size: 20px;
+    line-height: 1.6;
+    width: 40%;
+    height: 50%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
 }
 
 #world{
@@ -59,6 +94,10 @@ body::after {
     border: 1px solid black;
     display: grid;
     grid-template-columns: repeat(20, 1fr);
+    position: absolute;
+    top: 50%;
+    left: calc( 50% - 250px );
+    transform: translateY(-50%) translateX(-50%);
 }
 
 #side-menu {
@@ -180,4 +219,56 @@ body::after {
 
 .in-use{
     border:2px solid blue;
+}
+
+@media only screen and (max-width: 700px){
+    #side-menu {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100px;
+    }
+    #tools{
+        display:flex;
+        justify-content: space-around;
+        align-items: center;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .tool {
+        width: 50px;
+        height: 50px;
+        margin: 0;
+    }
+    .tool img {
+        max-height: 40px;
+    }
+    .tool span {
+        font-size: 10px;
+    }
+    #inventory {
+        grid-template-columns: repeat(5,1fr);
+        height: 20px;
+    }
+    .selected-tile {
+        width: 20px;
+        height: 20px;
+        margin: 0;
+        justify-self: center;
+    }
+    #inventory span {
+        font-size: 12px;
+    }
+    #world{
+        height: 300px;
+        width: 300px;
+        top: 50%;
+        left: 50%;
+        transform: translateY(-50%) translateX(-50%);
+    }
+    .tile{
+        box-sizing:border-box;
+        height: 15px;
+        width: 15px;
+    }
 }
