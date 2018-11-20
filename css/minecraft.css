@@ -73,8 +73,8 @@ body::after {
 }
 
 .tool {
-    width:120px;
-    height:120px;
+    width:60px;
+    height:60px;
     margin:auto;
     margin-top: 20px;
     background-color:gray;
@@ -83,7 +83,7 @@ body::after {
 }
 
 .tool img {
-    max-height:100px;
+    max-height:40px;
     position:absolute;
 }
 
@@ -91,6 +91,7 @@ body::after {
     display:inline-block;
     bottom:0;
     position:absolute;
+    font-size:0.9vw;
     font-family:Bloxat;
     text-transform: uppercase;
     margin:auto;
@@ -112,7 +113,7 @@ body::after {
 
 #inventory span {
     font-family:Bloxat;
-    font-size:30px;
+    font-size:24px;
 }
 
 .tile{

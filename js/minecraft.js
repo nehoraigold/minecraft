@@ -29,6 +29,12 @@ game.world.map = [
 
 game.user = {};
 
+game.toolDefinitions = {
+    pickaxe: ['rock'],
+    axe:['tree','trunk'],
+    shovel:['ground','grass'],
+    bucket:['water']
+}
 
 game.start = function () {
     game.world.display();
@@ -48,10 +54,12 @@ game.world.display = function () {
 }
 
 game.user.setDefaults = function () {
-    game.user.tools = $(".tool");
+    game.allTools = $(".tool");
+    game.activeTool = null;
     game.user.axe = $("#axe");
     game.user.pickaxe = $("#pickaxe");
     game.user.shovel = $("#shovel");
+    game.user.bucket = $("#bucket");
     game.user.tile = $(".tile");
     game.user.sky = $(".sky");
     game.user.setToolDefaultData();
@@ -60,11 +68,11 @@ game.user.setDefaults = function () {
 }
 
 game.user.setToolDefaultData = function () {
-    game.user.tools.data("isSelected", false);
+    game.activeTool = null;
 }
 
 game.user.connectEvents = function () {
-    game.user.tools.click(game.user.selectTool);
+    game.allTools.click(game.user.selectTool);
     game.user.selectableTiles.click(game.user.setSelectedTile)
     game.user.tile.click(game.user.clickOnTile);
     game.user.sky.click(game.user.settingBackTheTile);
@@ -74,7 +82,7 @@ game.user.selectTool = function () {
     game.user.removeClickedClass();
     game.user.setToolDefaultData();
     $(this).addClass("is-clicked");
-    $(this).data("is-selected", true);
+    game.activeTool = $(this);
 }
 
 game.user.setSelectedTile = function () {
@@ -85,34 +93,15 @@ game.user.setSelectedTile = function () {
 }
 
 game.user.removeClickedClass = function () {
-    game.user.tools.removeClass("is-clicked");
+    game.allTools.removeClass("is-clicked");
 }
 
 game.user.clickOnTile = function () {
     var that = $(this);
-    if (game.user.axe.data("isSelected")) {
-        if ($(this).data("type") === "tree" || $(this).data("type") === "trunk") {
-            game.user.removeTile(that);
-        }
-        else {
-            game.user.alertButton(game.user.axe);
-        }
-    }
-    if (game.user.pickaxe.data("is-selected")) {
-        if ($(this).data("type") === "rock") {
-            game.user.removeTile(that);
-        }
-        else {
-            game.user.alertButton(game.user.pickaxe);
-        }
-    }
-    if (game.user.shovel.data("is-selected")) {
-        if ($(this).data("type") === "grass" || $(this).data("type") === "ground") {
-            game.user.removeTile(that);
-        }
-        else {
-            game.user.alertButton(game.user.shovel);
-        }
+    if (game.toolDefinitions[game.activeTool.attr('id')].includes($(this).data('type'))) {
+        game.user.removeTile(that);
+    } else {
+        game.user.alertButton(game.activeTool);
     }
 }
 
@@ -121,9 +110,6 @@ game.user.removeTile = function (tile) {
     tile.removeClass(tile.data("type"));
     tile.addClass("sky");
     tile.on('click', game.user.settingBackTheTile);
-    // game.user.selectableTiles.removeClass(game.user.selectableTiles.data("type"));
-    // game.user.selectableTiles.data("type", tile.data("type"));
-    // game.user.selectableTiles.addClass(tile.data("type"));
     $(".selected-tile." + tile.data("type") + " span").text(game.user.inventory[tile.data("type")]);
 }
 
@@ -138,12 +124,9 @@ game.user.alertButton = function (btn) {
 
 game.user.settingBackTheTile = function () {
     if (game.user.selectedTile !== null && game.user.inventory[game.user.selectedTile] > 0) {
-        // game.user.inventory[game.user.selectableTiles.data('type')]--;
         game.user.inventory[game.user.selectedTile]--;
-        // $(this).addClass(game.user.selectableTiles.data("type"));
         $(this).addClass(game.user.selectedTile);
         $(".selected-tile." + game.user.selectedTile + " span").text(game.user.inventory[game.user.selectedTile]);
-        // game.user.selectableTiles.removeClass(game.user.selectableTiles.data("type"));
         game.user.selectableTiles.removeClass("in-use");
     }
 }
@@ -153,7 +136,9 @@ game.user.inventory = {
     tree: 0,
     trunk: 0,
     grass: 0,
-    ground: 0
+    ground: 0,
+    water: 0,
+    man: 0
 }
 
 game.user.generateInventory = function () {
