@@ -4,21 +4,22 @@ var game = {};
 game.world = {};
 game.world.WORLD_HEIGHT = 20;
 game.world.WORLD_WIDTH = 20;
+game.world.background = [];
 game.world.map = [
-    ["sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky"],
-    ["sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky"],
-    ["sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sun", "sun", "sky", "sky"],
-    ["sky", "sky", "cloud", "cloud", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sun", "sun", "sky", "sky"],
-    ["sky", "sky", "cloud", "cloud", "cloud", "cloud", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky"],
-    ["sky", "cloud", "cloud", "cloud", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky"],
-    ["sky", "sky", "cloud", "cloud", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky"],
-    ["sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "tree", "tree", "tree", "sky", "sky", "sky", "sky", "sky"],
-    ["sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "tree", "tree", "tree", "sky", "sky", "sky", "sky", "sky"],
-    ["sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "tree", "tree", "tree", "sky", "sky", "sky", "sky", "sky"],
-    ["sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "trunk", "sky", "sky", "sky", "sky", "sky", "sky"],
-    ["sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "trunk", "sky", "sky", "sky", "sky", "sky", "sky"],
-    ["sky", "sky", "sky", "rock", "rock", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "trunk", "sky", "sky", "sky", "sky", "sky", "sky"],
-    ["sky", "man", "sky", "rock", "rock", "rock", "sky", "sky", "sky", "sky", "sky", "sky", "sky", "trunk", "sky", "sky", "sky", "sky", "sky", "sky"],
+    ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "sun", "sun", "", ""],
+    ["", "", "cloud", "cloud", "", "", "", "", "", "", "", "", "", "", "", "", "sun", "sun", "", ""],
+    ["", "", "cloud", "cloud", "cloud", "cloud", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+    ["", "cloud", "cloud", "cloud", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+    ["", "", "cloud", "cloud", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", "", "", "", "", "tree", "tree", "tree", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", "", "", "", "", "tree", "tree", "tree", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", "", "", "", "", "tree", "tree", "tree", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", "", "", "", "", "", "trunk", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", "", "", "", "", "", "trunk", "", "", "", "", "", ""],
+    ["", "", "", "rock", "rock", "", "", "", "", "", "", "", "", "trunk", "", "", "", "", "", ""],
+    ["", "man", "", "rock", "rock", "rock", "", "", "", "", "", "", "", "trunk", "", "", "", "", "", ""],
     ["grass", "grass", "grass", "grass", "grass", "grass", "grass", "grass", "grass", "grass", "grass", "grass", "grass", "grass", "grass", "grass", "water", "water", "water", "water"],
     ["ground", "ground", "ground", "ground", "ground", "ground", "ground", "ground", "ground", "ground", "ground", "ground", "ground", "ground", "ground", "ground", "ground", "water", "water", "water"],
     ["ground", "ground", "ground", "ground", "ground", "ground", "ground", "ground", "ground", "ground", "ground", "ground", "ground", "ground", "ground", "ground", "ground", "ground", "water", "water"],
@@ -31,23 +32,37 @@ game.user = {};
 
 game.toolDefinitions = {
     pickaxe: ['rock'],
-    axe:['tree','trunk'],
-    shovel:['ground','grass'],
-    bucket:['water']
+    axe: ['tree', 'trunk'],
+    shovel: ['ground', 'grass'],
+    bucket: ['water']
 }
 
 game.start = function () {
-    game.world.display();
+    game.world.generateMap();
+    game.world.displayMap();
     game.user.generateInventory();
     game.user.setDefaults();
     game.user.connectEvents();
 }
 
-game.world.display = function () {
-    for (var i = 0; i < game.world.map.length; i++) {
-        for (var j = 0; j < game.world.map[i].length; j++) {
-            var tile = $('<div/>').addClass("tile " + game.world.map[i][j]);
-            tile.data("type", game.world.map[i][j]);
+game.world.generateMap = function () {
+    for (var i = 0; i < this.WORLD_HEIGHT; i++) {
+        game.world.background.push([]);
+        for (var j = 0; j < this.WORLD_WIDTH; j++) {
+            game.world.background[i].push("tile");
+        }
+    }
+}
+
+game.world.displayMap = function () {
+    for (var i = 0; i < game.world.background.length; i++) {
+        for (var j = 0; j < game.world.background[i].length; j++) {
+            var tile = $('<div/>').addClass(game.world.background[i][j]);
+            if (game.world.map[i][j] !== "") {
+                var paintedTile = $('<div/>').addClass("painted-tile " + game.world.map[i][j]);
+                paintedTile.data('type', game.world.map[i][j]);
+                tile.append(paintedTile);
+            }
             $('#world').append(tile);
         }
     }
@@ -60,8 +75,8 @@ game.user.setDefaults = function () {
     game.user.pickaxe = $("#pickaxe");
     game.user.shovel = $("#shovel");
     game.user.bucket = $("#bucket");
-    game.user.tile = $(".tile");
-    game.user.sky = $(".sky");
+    game.user.emptyTile = $(".tile");
+    game.user.paintedTile = $('.painted-tile');
     game.user.setToolDefaultData();
     game.user.selectedTile = null;
     game.user.selectableTiles = $(".selected-tile");
@@ -74,8 +89,8 @@ game.user.setToolDefaultData = function () {
 game.user.connectEvents = function () {
     game.allTools.click(game.user.selectTool);
     game.user.selectableTiles.click(game.user.setSelectedTile)
-    game.user.tile.click(game.user.clickOnTile);
-    game.user.sky.click(game.user.settingBackTheTile);
+    game.user.emptyTile.click(game.user.paintTile);
+    game.user.paintedTile.click(game.user.clearTile);
 }
 
 game.user.selectTool = function () {
@@ -83,12 +98,14 @@ game.user.selectTool = function () {
     game.user.setToolDefaultData();
     $(this).addClass("is-clicked");
     game.activeTool = $(this);
+    game.user.selectedTile = null;
 }
 
 game.user.setSelectedTile = function () {
     game.user.setToolDefaultData();
     game.user.removeClickedClass();
     game.user.selectedTile = $(this).data('type');
+    game.activeTool = null;
     $(this).addClass("in-use");
 }
 
@@ -96,8 +113,11 @@ game.user.removeClickedClass = function () {
     game.allTools.removeClass("is-clicked");
 }
 
-game.user.clickOnTile = function () {
+game.user.clearTile = function () {
     var that = $(this);
+    if (game.activeTool === null) {
+        return false;
+    }
     if (game.toolDefinitions[game.activeTool.attr('id')].includes($(this).data('type'))) {
         game.user.removeTile(that);
     } else {
@@ -107,10 +127,12 @@ game.user.clickOnTile = function () {
 
 game.user.removeTile = function (tile) {
     game.user.inventory[tile.data("type")]++;
-    tile.removeClass(tile.data("type"));
-    tile.addClass("sky");
-    tile.on('click', game.user.settingBackTheTile);
     $(".selected-tile." + tile.data("type") + " span").text(game.user.inventory[tile.data("type")]);
+    tile.fadeOut();
+    setTimeout(() => {
+        tile.remove();
+    }, 400);
+
 }
 
 game.user.alertButton = function (btn) {
@@ -122,10 +144,13 @@ game.user.alertButton = function (btn) {
     }, 100);
 }
 
-game.user.settingBackTheTile = function () {
+game.user.paintTile = function () {
     if (game.user.selectedTile !== null && game.user.inventory[game.user.selectedTile] > 0) {
         game.user.inventory[game.user.selectedTile]--;
-        $(this).addClass(game.user.selectedTile);
+        var newTile = $('<div/>').addClass('painted-tile ' + game.user.selectedTile).data('type', game.user.selectedTile).css('display','none');
+        newTile.click(game.user.clearTile);
+        $(this).append(newTile);
+        newTile.fadeIn();
         $(".selected-tile." + game.user.selectedTile + " span").text(game.user.inventory[game.user.selectedTile]);
         game.user.selectableTiles.removeClass("in-use");
     }
@@ -136,7 +161,7 @@ game.user.inventory = {
     tree: 0,
     trunk: 0,
     grass: 0,
-    ground: 0,
+    ground: 2,
     water: 0,
     man: 0
 }

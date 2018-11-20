@@ -68,7 +68,7 @@ body::after {
     top:0;
     bottom:0;
     right:0;
-    width:250px;
+    width:150px;
     height:100%;
 }
 
@@ -91,7 +91,7 @@ body::after {
     display:inline-block;
     bottom:0;
     position:absolute;
-    font-size:0.9vw;
+    font-size:12px;
     font-family:Bloxat;
     text-transform: uppercase;
     margin:auto;
@@ -120,14 +120,19 @@ body::after {
     box-sizing:border-box;
     height: 30px;
     width: 30px;
+    background-color: rgb(136, 228, 231);
 }
 
 #world .tile:hover {
     border:1px solid white;
 }
-.sky{
-    background-color: rgb(136, 228, 231);
+
+.painted-tile {
+    box-sizing:border-box;
+    height:30px;
+    width:30px;
 }
+
 .cloud{
     background-color: white;
 }
