@@ -1,6 +1,10 @@
 
 var game = {};
 
+game.bindBtn = function () {
+
+}
+
 game.world = {};
 game.world.WORLD_HEIGHT = 20;
 game.world.WORLD_WIDTH = 20;
@@ -30,7 +34,25 @@ game.world.map = [
 game.user = {};
 
 
+game.init = function () {
+    game.bindStartButtons()
+}
+
+game.bindStartButtons = function () {
+    $('#start-btn').click(function(){
+        $('#start-screen').css("display", "none");
+        game.start();
+    })
+    $('#tutorial-btn').click(function(){
+        $('#tutorial-modal-container').css('display', 'block');
+    })
+    $('#got-it-btn').click(function(){
+        $('#tutorial-modal-container').css('display', 'none');
+    })
+}
+
 game.start = function () {
+    $('#screen').css('display', 'block');
     game.world.display();
     game.user.generateInventory();
     game.user.setDefaults();
@@ -167,5 +189,5 @@ game.user.generateInventory = function () {
 
 
 $(document).ready(function () {
-    game.start();
+    game.init();
 })
