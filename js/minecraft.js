@@ -133,6 +133,7 @@ game.user.setSelectedTile = function () {
 
 game.user.removeClickedClass = function () {
     game.allTools.removeClass("is-clicked");
+    game.user.selectableTiles.removeClass('in-use');
 }
 
 game.user.clearTile = function () {
@@ -174,7 +175,7 @@ game.user.paintTile = function () {
         $(this).append(newTile);
         newTile.fadeIn();
         $(".selected-tile." + game.user.selectedTile + " span").text(game.user.inventory[game.user.selectedTile]);
-        game.user.selectableTiles.removeClass("in-use");
+        // game.user.selectableTiles.removeClass("in-use");
     }
 }
 
