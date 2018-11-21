@@ -38,7 +38,8 @@ game.toolDefinitions = {
     pickaxe: ['rock'],
     axe: ['tree', 'trunk'],
     shovel: ['ground', 'grass'],
-    bucket: ['water']
+    bucket: ['water'],
+    sword: ['man']
 }
 
 game.init = function () {
@@ -180,13 +181,13 @@ game.user.paintTile = function () {
 }
 
 game.user.inventory = {
-    rock: 0,
-    tree: 0,
-    trunk: 0,
-    grass: 0,
-    ground: 2,
-    water: 0,
-    man: 0
+    rock: 10,
+    tree: 10,
+    trunk: 10,
+    grass: 10,
+    ground: 10,
+    water: 10,
+    man: 10
 }
 
 game.user.generateInventory = function () {

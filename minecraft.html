@@ -1,71 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Minecraft</title>
-    <!-- <link rel='stylesheet' type='text/css' href='./css/lib/BOOTSTRAP.css'> -->
-    <link rel='stylesheet' type='text/css' href='./css/minecraft.css'>
-    <script src='./js/lib/jquery-3.3.1.min.js'></script>
-    <script src='./js/minecraft.js'></script>
-</head>
+        <title>Minecraft</title>
+        <!-- <link rel='stylesheet' type='text/css' href='./css/lib/BOOTSTRAP.css'> -->
+        <link rel='stylesheet' type='text/css' href='./css/minecraft.css'>
+        <script src='./js/lib/jquery-3.3.1.min.js'></script>
+        <script src='./js/minecraft.js'></script>
+    </head>
 
-<body>
-    <section id='start-screen'>
-        <img class='logo' src='./img/minecraft-logo.png' alt='Minecraft' />
-        <div class='start-buttons'>
-            <button id="start-btn">Start</button>
-            <button id="tutorial-btn">Tutorial</button>
-            <button>Load</button>
-            <button>Options</button>
-        </div>
-        <div id='tutorial-modal-container'>
-            <div id='tutorial-modal-content'>
-                The world of Minecraft exists for you to build it <br>
-                and transform it into anything and everything imaginable.<br>
-                Use the different tools to remove tiles from the world<br>
-                and add them to your inventory.<br>
-                Click on the tiles you have in your inventory<br>
-                to place them wherever you desire in your world.<br>
-                <button id='got-it-btn'>Got it</button>
+    <body>
+        <section id='start-screen'>
+            <img class='logo' src='./img/minecraft-logo.png' alt='Minecraft' />
+            <div class='start-buttons'>
+                <button id="start-btn">Start</button>
+                <button id="tutorial-btn">Tutorial</button>
+                <button>Load</button>
+                <button>Options</button>
             </div>
-        </div>
-    </section>
+            <div id='tutorial-modal-container'>
+                <div id='tutorial-modal-content'>
+                    The world of Minecraft exists for you to build it <br>
+                    and transform it into anything and everything imaginable.<br>
+                    Use the different tools to remove tiles from the world<br>
+                    and add them to your inventory.<br>
+                    Click on the tiles you have in your inventory<br>
+                    to place them wherever you desire in your world.<br>
+                    <button id='got-it-btn'>Got it</button>
+                </div>
+            </div>
+        </section>
 
-    <section id='modals'>
-        <!--OPTIONS: theme, save/load, world size-->
-    </section>
-    <section id='screen'>
-        <div id='world'></div>
-        <div id='side-menu'>
-            <div id='tools'>
-                <div class='tool' id='pickaxe'>
-                    <img src='./img/pickaxe.png' alt='pickaxe' />
-                    <span>Pickaxe</span>
-                </div>
-                <div class='tool' id='shovel'>
-                    <img src='./img/shovel.png' alt='shovel' />
-                    <span>Shovel</span>
-                </div>
-                <div class='tool' id='axe'>
-                    <img src='./img/axe.png' alt='axe' />
-                    <span>Axe</span>
-                </div>
-                <div class='tool' id='bucket'>
-                    <img src='./img/bucket.png' alt='bucket' />
-                    <span>Bucket</span>
+        <section id='modals'>
+            <!--OPTIONS: theme, save/load, world size-->
+        </section>
+        <section id='screen'>
+            <div id='world'></div>
+            <div id='side-menu'>
+                <div id='tools'>
+                    <div class='tool' id='pickaxe'>
+                        <img src='./img/pickaxe.png' alt='pickaxe' />
+                        <span>Pickaxe</span>
+                    </div>
+                    <div class='tool' id='shovel'>
+                        <img src='./img/shovel.png' alt='shovel' />
+                        <span>Shovel</span>
+                    </div>
+                    <div class='tool' id='axe'>
+                        <img src='./img/axe.png' alt='axe' />
+                        <span>Axe</span>
+                    </div>
+                    <div class='tool' id='bucket'>
+                        <img src='./img/bucket.png' alt='bucket' />
+                        <span>Bucket</span>
+                    </div>
+                    <div class='tool' id='sword'>
+                        <img src='./img/sword.png' alt='sword' />
+                        <span>Sword</span>
+                    </div>
                 </div>
                 <!-- <div class='selected-tile'></div> -->
                 <div id='inventory'>
                 </div>
             </div>
-            <!-- <div class='selected-tile'></div> -->
-            <div id='inventory'>
-            </div>
-        </div>
-    </section>
-</body>
+        </section>
+    </body>
 
 </html>
