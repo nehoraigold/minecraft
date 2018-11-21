@@ -62,6 +62,7 @@ game.bindStartButtons = function () {
 game.start = function () {
     game.world.generateMap();
     game.world.displayMap();
+    game.generateTools();
     $('#screen').css('display', 'block');
     game.user.generateInventory();
     game.user.setDefaults();
@@ -88,6 +89,17 @@ game.world.displayMap = function () {
             }
             $('#world').append(tile);
         }
+    }
+}
+
+game.generateTools = function() {
+    var tools = $('#tools');
+    for (var tool in game.toolDefinitions) {
+        var toolDiv = $('<div/>').addClass('tool').attr('id',tool);
+        var toolImage = $('<img/>').attr('src',`./img/${tool}.png`).attr('alt',tool);
+        var toolText = $('<span/>').text(tool);
+        toolDiv.append(toolImage).append(toolText);
+        tools.append(toolDiv);
     }
 }
 
