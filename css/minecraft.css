@@ -167,6 +167,11 @@ body::after {
     border:1px solid white;
 }
 
+#world .tile:hover .painted-tile {
+    height:28px;
+    width:28px;
+}
+
 .painted-tile {
     box-sizing:border-box;
     height:30px;
@@ -271,5 +276,15 @@ body::after {
         box-sizing:border-box;
         height: 15px;
         width: 15px;
+    }
+
+    .tile .painted-tile {
+        height:15px;
+        width:15px;
+    }
+
+    #world .tile:hover .painted-tile {
+        height:13px;
+        width:13px;
     }
 }
