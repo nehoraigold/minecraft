@@ -232,8 +232,13 @@ body::after {
         width: 70%;
         height: 50%;
     }
+    #world{
+        top: 50%;
+        left: 40%;
+        transform: translateY(-50%) translateX(-50%);
+    }
 }
-@media only screen and (max-width: 700px){
+@media only screen and (max-width: 780px){
     .start-buttons {
         width:140px;
     }
@@ -254,7 +259,7 @@ body::after {
     }
     #tools{
         display:flex;
-        justify-content: space-around;
+        justify-content: space-evenly;
         align-items: center;
         margin-top: 10px;
         margin-bottom: 10px;
@@ -271,7 +276,8 @@ body::after {
         font-size: 10px;
     }
     #inventory {
-        grid-template-columns: repeat(5,1fr);
+        display: flex;
+        justify-content: space-evenly;
         height: 20px;
     }
     .selected-tile {
