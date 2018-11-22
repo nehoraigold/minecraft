@@ -1,14 +1,10 @@
 
 var game = {};
 
-game.bindBtn = function () {
-    //do we need this?
-}
-
 game.world = {};
 game.world.WORLD_HEIGHT = 20;
 game.world.WORLD_WIDTH = 20;
-game.world.season = "winter";
+game.world.season = "autumn";
 game.world.background = [];
 game.world.map = [
     ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
