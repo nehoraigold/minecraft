@@ -2,13 +2,13 @@
 var game = {};
 
 game.bindBtn = function () {
-//do we need this?
+    //do we need this?
 }
 
 game.world = {};
 game.world.WORLD_HEIGHT = 20;
 game.world.WORLD_WIDTH = 20;
-game.world.season = "spring";
+game.world.season = "winter";
 game.world.background = [];
 game.world.map = [
     ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
@@ -58,6 +58,8 @@ game.bindStartButtons = function () {
     $('.modal-button').click(function () {
         if ($(this).attr('id') === "options-save") {
             game.saveOptions();
+        } else {
+            game.hideModal()
         }
     })
     $('#options-btn').click(function () {
@@ -75,7 +77,7 @@ game.hideModal = function () {
     $('.modal').css('display', 'none');
 }
 
-game.saveOptions = function() {
+game.saveOptions = function () {
     var userWidth = $('#world-width').val();
     var userHeight = $('#world-height').val();
     var errorMsg = $('#error-message');
@@ -112,9 +114,10 @@ game.world.generateMap = function () {
 game.world.displayMap = function () {
     for (var i = 0; i < game.world.background.length; i++) {
         for (var j = 0; j < game.world.background[i].length; j++) {
-            var tile = $('<div/>').addClass(game.world.background[i][j]);
+            var tile = $('<div/>').addClass('tile');
             if (game.world.map[i][j] !== "") {
-                var paintedTile = $('<div/>').addClass("painted-tile " + game.world.map[i][j]);
+                var paintedTile = $('<div/>').addClass("painted-tile");
+                paintedTile.css('background-image',`url(./img/${game.world.season}/${game.world.map[i][j]}.png)`);
                 paintedTile.data('type', game.world.map[i][j]);
                 tile.append(paintedTile);
             }
@@ -137,10 +140,9 @@ game.generateTools = function () {
 game.user.setDefaults = function () {
     game.allTools = $(".tool");
     game.activeTool = null;
-    game.user.axe = $("#axe");
-    game.user.pickaxe = $("#pickaxe");
-    game.user.shovel = $("#shovel");
-    game.user.bucket = $("#bucket");
+    for (var tool in game.toolDefinitions) {
+        game.user[tool] = $(`#${tool}`);
+    }
     game.user.emptyTile = $(".tile");
     game.user.paintedTile = $('.painted-tile');
     game.user.setToolDefaultData();
@@ -194,7 +196,7 @@ game.user.clearTile = function () {
 
 game.user.removeTile = function (tile) {
     game.user.inventory[tile.data("type")]++;
-    $(".selected-tile." + tile.data("type") + " span").text(game.user.inventory[tile.data("type")]);
+    $(`#selected-tile-${game.user.selectedTile} span`).text(game.user.inventory[tile.data("type")]);
     tile.fadeOut();
     setTimeout(() => {
         tile.remove();
@@ -214,12 +216,14 @@ game.user.alertButton = function (btn) {
 game.user.paintTile = function () {
     if (game.user.selectedTile !== null && game.user.inventory[game.user.selectedTile] > 0) {
         game.user.inventory[game.user.selectedTile]--;
-        var newTile = $('<div/>').addClass('painted-tile ' + game.user.selectedTile).data('type', game.user.selectedTile).css('display', 'none');
+        var newTile = $('<div/>').addClass('painted-tile').data('type', game.user.selectedTile).css({
+            'background-image':`url(./img/${game.world.season}/${game.user.selectedTile}.png)`,
+            "display":"none"
+        });
         newTile.click(game.user.clearTile);
         $(this).append(newTile);
         newTile.fadeIn();
-        $(".selected-tile." + game.user.selectedTile + " span").text(game.user.inventory[game.user.selectedTile]);
-        // game.user.selectableTiles.removeClass("in-use");
+        $(`#selected-tile-${game.user.selectedTile} span`).text(game.user.inventory[game.user.selectedTile]);
     }
 }
 
@@ -235,7 +239,8 @@ game.user.inventory = {
 
 game.user.generateInventory = function () {
     for (var item in game.user.inventory) {
-        var div = $('<div />').addClass(item).addClass('selected-tile').data('type', item);
+        var div = $('<div />').addClass('selected-tile').data('type', item).attr('id','selected-tile-' + item);
+        div.css('background-image',`url(./img/${game.world.season}/${item}.png)`);
         var span = $('<span/>').text(game.user.inventory[item]);
         div.append(span);
         $('#inventory').append(div);

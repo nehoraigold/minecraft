@@ -159,7 +159,8 @@ button:hover {
     height:30px;
     margin:auto;
     margin-top:40px;
-    background-color:white;
+    background-color:rgb(136,228,231);
+    background-size:contain;
     cursor: pointer;
 }
 
@@ -193,44 +194,38 @@ button:hover {
     box-sizing:border-box;
     height:30px;
     width:30px;
+    background-color: rgb(136, 228, 231);
+    background-size: cover;
 }
 
-.cloud{
+/* .cloud{
     background-color: white;
 }
 .tree{
     background-image: url(../img/tree.jpg);
-    background-size: cover;
 }
 .ground{
     background-image: url(../img/ground.jpg);
-    background-size: cover;
 }
 .grass{
     background-image: url(../img/grass.jpg);
-    background-size: cover;
 }
 .rock{
     background-image: url(../img/rock.jpg);
-    background-size: cover;
 }
 .trunk{
     background-image: url(../img/trunk.jpg);
-    background-size: cover;
 }
 .sun{
     background-image: url(../img/sun.jpg);
-    background-size: cover;
 }
 .water{
     background-image: url(../img/water.jpg);
-    background-size: cover;
 }
 .man{
     background-color: rgb(136, 228, 231);
     background-image: url(../img/man.png);
-    background-size: cover;
-}
+} */
 
 .tool.alert{
     background-color: red;
