@@ -178,7 +178,18 @@ button:hover {
     box-sizing:border-box;
     height: 30px;
     width: 30px;
+}
+
+.summer,.spring{
     background-color: rgb(136, 228, 231);
+}
+
+.winter{
+    background-color: rgb(135, 146, 146);
+}
+
+.autumn{
+    background-color: rgb(187, 198, 199);
 }
 
 #world .tile:hover {
@@ -194,7 +205,6 @@ button:hover {
     box-sizing:border-box;
     height:30px;
     width:30px;
-    background-color: rgb(136, 228, 231);
     background-size: cover;
 }
 

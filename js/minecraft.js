@@ -11,7 +11,7 @@ game.init = function () {
 game.setDefaultData = function () {
     game.world.worldHeight = 20;
     game.world.worldWidth = 20;
-    game.world.season = "autumn";
+    game.world.season = "spring";
     game.world.background = [];
     game.user.inventory = {
         rock: 0,
@@ -66,11 +66,8 @@ game.hideModal = function () {
 
 game.saveOptions = function () {
     var worldSize = $('input[name="size"]:checked').val()
-    if (worldSize === "medium") {
+    if (worldSize === "big") {
         game.world.worldWidth = 30;
-    }
-    else if (worldSize === "big") {
-        game.world.worldWidth = 40;
     }
     $('#world').css("grid-template-columns", `repeat(${game.world.worldWidth}, 1fr)`)
     game.world.season = $('input[name="season"]:checked').val();
@@ -121,13 +118,6 @@ game.world.generateWorld = function () {
         manIndex = Math.floor(Math.random() * (game.world.worldWidth));
     }
     while (Math.abs(waterIndex - manIndex) < 3 || Math.abs(rockIndex - manIndex) < 2 || trunkIndex === manIndex);
-    if (game.world.worldWidth === 30) {
-        var cloudIndex2;
-        do {
-            cloudIndex2 = Math.floor(Math.random() * (game.world.worldWidth - 2))
-        }
-        while (Math.abs(cloudIndex2 - sunIndex) < 2 || Math.abs(cloudIndex2 - cloudIndex) < 5)
-    }
     for (let r = 0; r < game.world.worldHeight; r++) {
         game.world.matrix.push([]);
     }
@@ -140,16 +130,12 @@ game.world.generateWorld = function () {
     game.world.matrix[2][cloudIndex] = "cloud";
     game.world.matrix[2][cloudIndex + 1] = "cloud";
     game.world.matrix[2][cloudIndex + 2] = "cloud";
-    game.world.matrix[2][cloudIndex2] = "cloud";
-    game.world.matrix[2][cloudIndex2 + 1] = "cloud";
     game.world.matrix[3][cloudIndex - 1] = "cloud";
     game.world.matrix[3][cloudIndex] = "cloud";
     game.world.matrix[3][cloudIndex + 1] = "cloud";
     game.world.matrix[3][cloudIndex + 2] = "cloud";
     game.world.matrix[3][cloudIndex + 3] = "cloud";
     game.world.matrix[3][cloudIndex + 4] = "cloud";
-    game.world.matrix[3][cloudIndex2 + 1] = "cloud";
-    game.world.matrix[3][cloudIndex2 + 2] = "cloud";
     game.world.matrix[4][cloudIndex] = "cloud";
     game.world.matrix[4][cloudIndex + 1] = "cloud";
     game.world.matrix[4][cloudIndex + 2] = "cloud";
@@ -168,43 +154,111 @@ game.world.generateWorld = function () {
     game.world.matrix[11][trunkIndex] = "trunk";
     game.world.matrix[12][trunkIndex] = "trunk";
     game.world.matrix[12][rockIndex] = "rock";
-    game.world.matrix[12][rockIndex + 1] = "rock";
     game.world.matrix[13][rockIndex - 1] = "rock";
     game.world.matrix[13][rockIndex] = "rock";
     game.world.matrix[13][rockIndex + 1] = "rock";
     game.world.matrix[13][trunkIndex] = "trunk";
     game.world.matrix[13][manIndex] = "man";
+    if (game.world.worldWidth === 30) {
+        var cloudIndex2;
+        do {
+            cloudIndex2 = Math.floor(Math.random() * (game.world.worldWidth - 2))
+        }
+        while (Math.abs(cloudIndex2 - sunIndex) < 2 || Math.abs(cloudIndex2 - cloudIndex) < 5);
+        var rockIndex2;
+        do {
+            rockIndex2 = Math.floor(Math.random() * (game.world.worldWidth - 3) + 1)
+        }
+        while (Math.abs(trunkIndex - rockIndex2) < 2 || manIndex === rockIndex2);
+        var trunkIndex2;
+        do {
+            trunkIndex2 = Math.floor(Math.random() * (game.world.worldWidth - 3) + 2)
+        }
+        while (Math.abs(rockIndex - trunkIndex2) < 2 || Math.abs(rockIndex2 - trunkIndex2) < 2 || Math.abs(trunkIndex - trunkIndex2) < 3);
+        var manIndex2;
+        do {
+            manIndex2 = Math.floor(Math.random() * (game.world.worldWidth))
+        }
+        while (Math.abs(waterIndex - manIndex2) < 3 || Math.abs(rockIndex - manIndex2) < 2 || Math.abs(rockIndex2 - manIndex2) < 2 || trunkIndex === manIndex2 || trunkIndex2 === manIndex2 || manIndex === manIndex2);
+        var manIndex3;
+        do {
+            manIndex3 = Math.floor(Math.random() * (game.world.worldWidth))
+        }
+        while (Math.abs(waterIndex - manIndex3) < 3 || Math.abs(rockIndex - manIndex3) < 2 || Math.abs(rockIndex2 - manIndex3) < 2 || trunkIndex === manIndex3 || trunkIndex2 === manIndex3 || manIndex === manIndex3 || manIndex2 === manIndex3);
+        game.world.matrix[2][cloudIndex2] = "cloud";
+        game.world.matrix[2][cloudIndex2 + 1] = "cloud";
+        game.world.matrix[3][cloudIndex2] = "cloud";
+        game.world.matrix[3][cloudIndex2 + 1] = "cloud";
+        game.world.matrix[3][cloudIndex2 + 2] = "cloud";
+        game.world.matrix[4][cloudIndex2 + 1] = "cloud";
+        game.world.matrix[7][trunkIndex2 - 1] = "tree";
+        game.world.matrix[7][trunkIndex2] = "tree";
+        game.world.matrix[7][trunkIndex2 + 1] = "tree";
+        game.world.matrix[8][trunkIndex2 - 1] = "tree";
+        game.world.matrix[8][trunkIndex2] = "tree";
+        game.world.matrix[8][trunkIndex2 + 1] = "tree";
+        game.world.matrix[9][trunkIndex2 - 1] = "tree";
+        game.world.matrix[9][trunkIndex2] = "tree";
+        game.world.matrix[9][trunkIndex2 + 1] = "tree";
+        game.world.matrix[10][trunkIndex2] = "trunk";
+        game.world.matrix[12][trunkIndex2] = "trunk";
+        game.world.matrix[12][rockIndex + 1] = "rock";
+        game.world.matrix[11][trunkIndex2] = "trunk";
+        game.world.matrix[12][rockIndex2] = "rock";
+        game.world.matrix[12][rockIndex2 + 1] = "rock";
+        game.world.matrix[13][rockIndex2] = "rock";
+        game.world.matrix[13][rockIndex2 + 1] = "rock";
+        game.world.matrix[13][trunkIndex2] = "trunk";
+        game.world.matrix[13][manIndex2] = "man";
+        game.world.matrix[13][manIndex3] = "man";
+    }
     for (let r = 14; r < game.world.worldHeight; r++) {
         for (let c = 0; c < game.world.worldWidth; c++) {
-            if (r === 14){
-                if(c=== waterIndex-1 || c===waterIndex || c===waterIndex+1) {
+            if (r === 14) {
+                if (c === waterIndex - 1 || c === waterIndex || c === waterIndex + 1) {
                     game.world.matrix[r][c] = "water";
                 }
-                else{
+                else {
                     game.world.matrix[r][c] = "grass";
                 }
             }
-            else if (r === 15){
-                if(c=== waterIndex-1 || c===waterIndex || c===waterIndex+1) {
+            else if (r === 15) {
+                if (c === waterIndex - 1 || c === waterIndex || c === waterIndex + 1) {
                     game.world.matrix[r][c] = "water";
                 }
-                else{
+                else {
                     game.world.matrix[r][c] = "ground";
                 }
             }
-            else if (r === 16){
-                if(c=== waterIndex-1 || c===waterIndex || c===waterIndex+1) {
+            else if (r === 16) {
+                if (c === waterIndex - 1 || c === waterIndex || c === waterIndex + 1) {
                     game.world.matrix[r][c] = "water";
                 }
-                else{
+                else {
                     game.world.matrix[r][c] = "ground";
                 }
             }
-            else if (r === 17){
-                if(c=== waterIndex-1 || c===waterIndex || c===waterIndex+1) {
+            else if (r === 17) {
+                if (c === waterIndex - 1 || c === waterIndex || c === waterIndex + 1) {
                     game.world.matrix[r][c] = "water";
                 }
-                else{
+                else {
+                    game.world.matrix[r][c] = "ground";
+                }
+            }
+            else if (r === 18) {
+                if (c === waterIndex - 1 || c === waterIndex || c === waterIndex + 1) {
+                    game.world.matrix[r][c] = "water";
+                }
+                else {
+                    game.world.matrix[r][c] = "ground";
+                }
+            }
+            else if (r === 19) {
+                if (c === waterIndex - 1 || c === waterIndex || c === waterIndex + 1) {
+                    game.world.matrix[r][c] = "water";
+                }
+                else {
                     game.world.matrix[r][c] = "ground";
                 }
             }
@@ -219,9 +273,9 @@ game.world.generateWorld = function () {
 game.world.displayMap = function () {
     for (var i = 0; i < game.world.background.length; i++) {
         for (var j = 0; j < game.world.background[i].length; j++) {
-            var tile = $('<div/>').addClass('tile');
+            var tile = $('<div/>').addClass(`tile ${game.world.season}`);
             if (game.world.matrix[i][j] !== "" && game.world.matrix[i][j] != undefined) {
-                var paintedTile = $('<div/>').addClass("painted-tile");
+                var paintedTile = $('<div/>').addClass(`painted-tile ${game.world.season}`);
                 paintedTile.css('background-image', `url(./img/${game.world.season}/${game.world.matrix[i][j]}.png)`);
                 paintedTile.data('type', game.world.matrix[i][j]);
                 tile.append(paintedTile);
