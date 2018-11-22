@@ -4,11 +4,11 @@ game.world = {};
 game.user = {};
 
 game.init = function () {
-    game.setDefaultDef()
+    game.setDefaultData()
     game.bindStartButtons()
 }
 
-game.setDefaultDef = function () {
+game.setDefaultData = function () {
     game.world.worldHeight = 20;
     game.world.worldWidth = 20;
     game.world.season = "autumn";
@@ -37,7 +37,7 @@ game.bindStartButtons = function () {
         game.start();
     })
     $('#tutorial-btn').click(function () {
-        $('#tutorial-modal-container').css('display', 'block');
+        game.showModal('tutorial-modal')
     })
     $('.modal-button').click(function () {
         if ($(this).attr('id') === "options-save") {
@@ -120,225 +120,95 @@ game.world.generateWorld = function () {
     do {
         manIndex = Math.floor(Math.random() * (game.world.worldWidth));
     }
-    while (Math.abs(waterIndex - manIndex) < 3 || Math.abs(rockIndex - manIndex) < 2 || trunkIndex !== manIndex);
+    while (Math.abs(waterIndex - manIndex) < 3 || Math.abs(rockIndex - manIndex) < 2 || trunkIndex === manIndex);
     if (game.world.worldWidth === 30) {
         var cloudIndex2;
         do {
-            cloudIndex = Math.floor(Math.random() * (game.world.worldWidth - 2))
+            cloudIndex2 = Math.floor(Math.random() * (game.world.worldWidth - 2))
         }
         while (Math.abs(cloudIndex2 - sunIndex) < 2 || Math.abs(cloudIndex2 - cloudIndex) < 5)
     }
-    for (var r = 0; r < game.world.worldHeight; r++) {
+    for (let r = 0; r < game.world.worldHeight; r++) {
         game.world.matrix.push([]);
-        for (var c = 0; c < game.world.worldWidth; c++) {
-            if (r === 1) {
-                if (c === sunIndex && game.world.season !== "winter" && game.world.season !== "autumn") {
-                    game.world.matrix[r][c] = "sun";
-                }
-                else if (c === sunIndex + 1 && game.world.season !== "winter" && game.world.season !== "autumn") {
-                    game.world.matrix[r][c] = "sun";
-                }
-            }
-            else if (r === 2) {
-                if (c === sunIndex && game.world.season !== "winter" && game.world.season !== "autumn") {
-                    game.world.matrix[r][c] = "sun";
-                }
-                else if (c === sunIndex + 1 && game.world.season !== "winter" && game.world.season !== "autumn") {
-                    game.world.matrix[r][c] = "sun";
-                }
-                else if (c === cloudIndex) {
-                    game.world.matrix[r][c] = "cloud";
-                }
-                else if (c === cloudIndex + 1) {
-                    game.world.matrix[r][c] = "cloud";
-                }
-                else if (c === cloudIndex + 2) {
-                    game.world.matrix[r][c] = "cloud";
-                }
-                else if (c === cloudIndex2) {
-                    game.world.matrix[r][c] = "cloud";
-                }
-                else if (c === cloudIndex2 + 1) {
-                    game.world.matrix[r][c] = "cloud";
-                }
-            }
-            else if (r === 3) {
-                if (c === cloudIndex - 1) {
-                    game.world.matrix[r][c] = "cloud";
-                }
-                else if (c === cloudIndex) {
-                    game.world.matrix[r][c] = "cloud";
-                }
-                else if (c === cloudIndex + 1) {
-                    game.world.matrix[r][c] = "cloud";
-                }
-                else if (c === cloudIndex + 2) {
-                    game.world.matrix[r][c] = "cloud";
-                }
-                else if (c === cloudIndex + 3) {
-                    game.world.matrix[r][c] = "cloud";
-                }
-                else if (c === cloudIndex + 4) {
-                    game.world.matrix[r][c] = "cloud";
-                }
-                else if (c === cloudIndex2 + 1) {
-                    game.world.matrix[r][c] = "cloud";
-                }
-                else if (c === cloudIndex2 + 2){
-                    game.world.matrix[r][c] = "cloud";
-                }
-            }
-            else if (r === 4) {
-                if (c === cloudIndex) {
-                    game.world.matrix[r][c] = "cloud";
-                }
-                else if (c === cloudIndex + 1) {
-                    game.world.matrix[r][c] = "cloud";
-                }
-                else if (c === cloudIndex + 2) {
-                    game.world.matrix[r][c] = "cloud";
-                }
-                else if (c === cloudIndex + 3) {
-                    game.world.matrix[r][c] = "cloud";
-                }
-            }
-            else if (r === 5) {
-                if (c === cloudIndex + 2) {
-                    game.world.matrix[r][c] = "cloud";
-                }
-            }
-            else if (r === 7) {
-                if (c === trunkIndex - 1) {
-                    game.world.matrix[r][c] = "tree";
-                }
-                else if (c === trunkIndex) {
-                    game.world.matrix[r][c] = "tree";
-                }
-                else if (c === trunkIndex + 1) {
-                    game.world.matrix[r][c] = "tree";
-                }
-            }
-            else if (r === 8) {
-                if (c === trunkIndex - 1) {
-                    game.world.matrix[r][c] = "tree";
-                }
-                else if (c === trunkIndex) {
-                    game.world.matrix[r][c] = "tree";
-                }
-                else if (c === trunkIndex + 1) {
-                    game.world.matrix[r][c] = "tree";
-                }
-            }
-            else if (r === 9) {
-                if (c === trunkIndex - 1) {
-                    game.world.matrix[r][c] = "tree";
-                }
-                else if (c === trunkIndex) {
-                    game.world.matrix[r][c] = "tree";
-                }
-                else if (c === trunkIndex + 1) {
-                    game.world.matrix[r][c] = "tree";
-                }
-            }
-            else if (r === 10) {
-                if (c === trunkIndex) {
-                    game.world.matrix[r][c] = "trunk";
-                }
-            }
-            else if (r === 11) {
-                if (c === trunkIndex) {
-                    game.world.matrix[r][c] = "trunk";
-                }
-            }
-            else if (r === 12) {
-                if (c === rockIndex) {
-                    game.world.matrix[r][c] = "rock";
-                }
-                else if (c === rockIndex + 1) {
-                    game.world.matrix[r][c] = "rock";
-                }
-                else if (c === trunkIndex) {
-                    game.world.matrix[r][c] = "trunk";
-                }
-            }
-            else if (r === 13) {
-                if (c === rockIndex - 1) {
-                    game.world.matrix[r][c] = "rock";
-                }
-                else if (c === rockIndex) {
-                    game.world.matrix[r][c] = "rock";
-                }
-                else if (c === rockIndex + 1) {
-                    game.world.matrix[r][c] = "rock";
-                }
-                else if (c === trunkIndex) {
-                    game.world.matrix[r][c] = "trunk";
-                }
-                else if (c === manIndex) {
-                    game.world.matrix[r][c] = "man";
-                }
-            }
-            else if (r === 14) {
-                if (c === waterIndex - 2) {
+    }
+    if (game.world.season !== "winter" && game.world.season !== "autumn") {
+        game.world.matrix[1][sunIndex] = "sun";
+        game.world.matrix[1][sunIndex + 1] = "sun";
+        game.world.matrix[2][sunIndex] = "sun";
+        game.world.matrix[2][sunIndex + 1] = "sun";
+    }
+    game.world.matrix[2][cloudIndex] = "cloud";
+    game.world.matrix[2][cloudIndex + 1] = "cloud";
+    game.world.matrix[2][cloudIndex + 2] = "cloud";
+    game.world.matrix[2][cloudIndex2] = "cloud";
+    game.world.matrix[2][cloudIndex2 + 1] = "cloud";
+    game.world.matrix[3][cloudIndex - 1] = "cloud";
+    game.world.matrix[3][cloudIndex] = "cloud";
+    game.world.matrix[3][cloudIndex + 1] = "cloud";
+    game.world.matrix[3][cloudIndex + 2] = "cloud";
+    game.world.matrix[3][cloudIndex + 3] = "cloud";
+    game.world.matrix[3][cloudIndex + 4] = "cloud";
+    game.world.matrix[3][cloudIndex2 + 1] = "cloud";
+    game.world.matrix[3][cloudIndex2 + 2] = "cloud";
+    game.world.matrix[4][cloudIndex] = "cloud";
+    game.world.matrix[4][cloudIndex + 1] = "cloud";
+    game.world.matrix[4][cloudIndex + 2] = "cloud";
+    game.world.matrix[4][cloudIndex + 3] = "cloud";
+    game.world.matrix[5][cloudIndex + 2] = "cloud";
+    game.world.matrix[7][trunkIndex - 1] = "tree";
+    game.world.matrix[7][trunkIndex] = "tree";
+    game.world.matrix[7][trunkIndex + 1] = "tree";
+    game.world.matrix[8][trunkIndex - 1] = "tree";
+    game.world.matrix[8][trunkIndex] = "tree";
+    game.world.matrix[8][trunkIndex + 1] = "tree";
+    game.world.matrix[9][trunkIndex - 1] = "tree";
+    game.world.matrix[9][trunkIndex] = "tree";
+    game.world.matrix[9][trunkIndex + 1] = "tree";
+    game.world.matrix[10][trunkIndex] = "trunk";
+    game.world.matrix[11][trunkIndex] = "trunk";
+    game.world.matrix[12][trunkIndex] = "trunk";
+    game.world.matrix[12][rockIndex] = "rock";
+    game.world.matrix[12][rockIndex + 1] = "rock";
+    game.world.matrix[13][rockIndex - 1] = "rock";
+    game.world.matrix[13][rockIndex] = "rock";
+    game.world.matrix[13][rockIndex + 1] = "rock";
+    game.world.matrix[13][trunkIndex] = "trunk";
+    game.world.matrix[13][manIndex] = "man";
+    for (let r = 14; r < game.world.worldHeight; r++) {
+        for (let c = 0; c < game.world.worldWidth; c++) {
+            if (r === 14){
+                if(c=== waterIndex-1 || c===waterIndex || c===waterIndex+1) {
                     game.world.matrix[r][c] = "water";
                 }
-                else if (c === waterIndex - 1) {
-                    game.world.matrix[r][c] = "water";
-                }
-                else if (c === waterIndex) {
-                    game.world.matrix[r][c] = "water";
-                }
-                else if (c === waterIndex + 1) {
-                    game.world.matrix[r][c] = "water";
-                }
-                else if (c === waterIndex + 2) {
-                    game.world.matrix[r][c] = "water";
-                }
-                else {
+                else{
                     game.world.matrix[r][c] = "grass";
                 }
             }
-            else if (r === 15) {
-                if (c === waterIndex - 2 && waterIndex < 3) {
+            else if (r === 15){
+                if(c=== waterIndex-1 || c===waterIndex || c===waterIndex+1) {
                     game.world.matrix[r][c] = "water";
                 }
-                else if (c === waterIndex - 1) {
-                    game.world.matrix[r][c] = "water";
-                }
-                else if (c === waterIndex) {
-                    game.world.matrix[r][c] = "water";
-                }
-                else if (c === waterIndex + 1) {
-                    game.world.matrix[r][c] = "water";
-                }
-                else if (c === waterIndex + 2 && waterIndex > game.world.worldWidth - 4) {
-                    game.world.matrix[r][c] = "water";
-                }
-                else {
+                else{
                     game.world.matrix[r][c] = "ground";
                 }
             }
-            else if (r === 16) {
-                if (c === waterIndex - 2 && waterIndex < 3) {
+            else if (r === 16){
+                if(c=== waterIndex-1 || c===waterIndex || c===waterIndex+1) {
                     game.world.matrix[r][c] = "water";
                 }
-                else if (c === waterIndex - 1 && waterIndex < 3) {
-                    game.world.matrix[r][c] = "water";
-                }
-                else if (c === waterIndex) {
-                    game.world.matrix[r][c] = "water";
-                }
-                else if (c === waterIndex + 1 && waterIndex > game.world.worldWidth - 4) {
-                    game.world.matrix[r][c] = "water";
-                }
-                else if (c === waterIndex + 2 && waterIndex > game.world.worldWidth - 4) {
-                    game.world.matrix[r][c] = "water";
-                }
-                else {
+                else{
                     game.world.matrix[r][c] = "ground";
                 }
             }
-            else if (r >= 15 && r <= 20) {
+            else if (r === 17){
+                if(c=== waterIndex-1 || c===waterIndex || c===waterIndex+1) {
+                    game.world.matrix[r][c] = "water";
+                }
+                else{
+                    game.world.matrix[r][c] = "ground";
+                }
+            }
+            else {
                 game.world.matrix[r][c] = "ground";
             }
         }
@@ -350,7 +220,7 @@ game.world.displayMap = function () {
     for (var i = 0; i < game.world.background.length; i++) {
         for (var j = 0; j < game.world.background[i].length; j++) {
             var tile = $('<div/>').addClass('tile');
-            if (game.world.matrix[i][j] !== "" && game.world.matrix[i][j] !== undefined ) {
+            if (game.world.matrix[i][j] !== "" && game.world.matrix[i][j] !== undefined) {
                 var paintedTile = $('<div/>').addClass("painted-tile");
                 paintedTile.css('background-image', `url(./img/${game.world.season}/${game.world.matrix[i][j]}.png)`);
                 paintedTile.data('type', game.world.matrix[i][j]);

@@ -198,35 +198,6 @@ button:hover {
     background-size: cover;
 }
 
-/* .cloud{
-    background-color: white;
-}
-.tree{
-    background-image: url(../img/tree.jpg);
-}
-.ground{
-    background-image: url(../img/ground.jpg);
-}
-.grass{
-    background-image: url(../img/grass.jpg);
-}
-.rock{
-    background-image: url(../img/rock.jpg);
-}
-.trunk{
-    background-image: url(../img/trunk.jpg);
-}
-.sun{
-    background-image: url(../img/sun.jpg);
-}
-.water{
-    background-image: url(../img/water.jpg);
-}
-.man{
-    background-color: rgb(136, 228, 231);
-    background-image: url(../img/man.png);
-} */
-
 .tool.alert{
     background-color: red;
 }
@@ -253,7 +224,7 @@ button:hover {
 @media only screen and (max-width: 1200px){
     .modal{
         width: 70%;
-        height: 50%;
+        height: 60%;
     }
     #world{
         top: 50%;
@@ -271,9 +242,11 @@ button:hover {
         height:30px;
         width:120px;
     }
-    .modal{
-        width: 90%;
+    #tutorial-modal{
         font-size: 12px;
+    }
+    #options-modal{
+        width: 90%;
     }
     #side-menu {
         top: 0;

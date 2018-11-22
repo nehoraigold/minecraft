@@ -1,65 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        <title>Minecraft</title>
-        <!-- <link rel='stylesheet' type='text/css' href='./css/lib/BOOTSTRAP.css'> -->
-        <link rel='stylesheet' type='text/css' href='./css/minecraft.css'>
-        <script src='./js/lib/jquery-3.3.1.min.js'></script>
-        <script src='./js/minecraft.js'></script>
-    </head>
+    <title>Minecraft</title>
+    <!-- <link rel='stylesheet' type='text/css' href='./css/lib/BOOTSTRAP.css'> -->
+    <link rel='stylesheet' type='text/css' href='./css/minecraft.css'>
+    <script src='./js/lib/jquery-3.3.1.min.js'></script>
+    <script src='./js/minecraft.js'></script>
+</head>
 
-    <body>
-        <section id='start-screen'>
-            <img class='logo' src='./img/minecraft-logo.png' alt='Minecraft' />
-            <div class='start-buttons'>
-                <button id="start-btn">Start</button>
-                <button id="tutorial-btn">Tutorial</button>
-                <button>Load</button>
-                <button id='options-btn'>Options</button>
-            </div>
-        </section>
+<body>
+    <section id='start-screen'>
+        <img class='logo' src='./img/minecraft-logo.png' alt='Minecraft' />
+        <div class='start-buttons'>
+            <button id="start-btn">Start</button>
+            <button id="tutorial-btn">Tutorial</button>
+            <button>Load</button>
+            <button id='options-btn'>Options</button>
+        </div>
+    </section>
 
-        <section id='modal-container' style='display:none'>
-            <!--TUTORIAL MODAL-->
-            <div class='modal' id='tutorial-modal' style='display:none'>
-                <h2>HOW TO PLAY</h2>
-                The world of Minecraft exists for you to build it and transform it into anything and everything imaginable. Remove and place tiles using your tools and inventory, and make whichever world you desire! <br><span id='tools-explanation'></span>
-                <button class='modal-button' id='got-it-btn'>Got it</button>
+    <section id='modal-container' style='display:none'>
+        <!--TUTORIAL MODAL-->
+        <div class='modal' id='tutorial-modal' style='display:none'>
+            <h2>HOW TO PLAY</h2>
+            The world of Minecraft exists for you to build it and transform it into anything and everything imaginable.
+            Remove and place tiles using your tools and inventory, and make whichever world you desire! <br><span id='tools-explanation'></span>
+            <button class='modal-button' id='got-it-btn'>Got it</button>
+        </div>
+        <!--OPTIONS MODAL-->
+        <div class='modal' id='options-modal' style='display:none'>
+            <h2>OPTIONS</h2>
+            <div>
+                <h4>WORLD SIZE</h4>
+                <label><input type='radio' name='size' value='small' checked>small</label>
+                <label><input type='radio' name='size' value='medium'>medium</label>
+                <label><input type='radio' name='size' value='big'>big</label>
             </div>
-            <!--OPTIONS MODAL-->
-            <div class='modal' id='options-modal' style='display:none'>
-                <h2>OPTIONS</h2>
-                <div>
-                    <h4>WORLD SIZE</h4>
-                    <label><input type='radio' name='size' value='small' checked>small</label>
-                    <label><input type='radio' name='size' value='medium'>medium</label>
-                    <label><input type='radio' name='size' value='big'>big</label>
-                </div>
-                <div>
-                    <h4>SEASON</h4>
-                    <label><input type='radio' name='season' value='winter'>Winter</label>
-                    <label><input type='radio' name='season' value='spring' checked>Spring</label>
-                    <label><input type='radio' name='season' value='summer'>Summer</label>
-                    <label><input type='radio' name='season' value='autumn'>Autumn</label>
-                </div>
-                </div>
-                <button class='modal-button' id='options-save'>OK</button>
-        </section>
-        <section id='screen'>
-            <div id='world'></div>
-            <div id='side-menu'>
-                <div id='tools'>
-                </div>
-                <!-- <div class='selected-tile'></div> -->
-                <div id='inventory'>
-                </div>
+            <div>
+                <h4>SEASON</h4>
+                <label><input type='radio' name='season' value='winter'>Winter</label>
+                <label><input type='radio' name='season' value='spring' checked>Spring</label>
+                <label><input type='radio' name='season' value='summer'>Summer</label>
+                <label><input type='radio' name='season' value='autumn'>Autumn</label>
             </div>
-            <button id='start-new-game-btn'>New Game</button>
-        </section>
-    </body>
+            <button class='modal-button' id='options-save'>OK</button>
+        </div>
+    </section>
+    <section id='screen'>
+        <div id='world'></div>
+        <div id='side-menu'>
+            <div id='tools'>
+            </div>
+            <div id='inventory'>
+            </div>
+        </div>
+        <button id='start-new-game-btn'>New Game</button>
+    </section>
+</body>
 
 </html>
