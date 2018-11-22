@@ -19,23 +19,34 @@
                 <button id="start-btn">Start</button>
                 <button id="tutorial-btn">Tutorial</button>
                 <button>Load</button>
-                <button>Options</button>
-            </div>
-            <div id='tutorial-modal-container'>
-                <div id='tutorial-modal-content'>
-                    The world of Minecraft exists for you to build it <br>
-                    and transform it into anything and everything imaginable.<br>
-                    Use the different tools to remove tiles from the world<br>
-                    and add them to your inventory.<br>
-                    Click on the tiles you have in your inventory<br>
-                    to place them wherever you desire in your world.<br>
-                    <button id='got-it-btn'>Got it</button>
-                </div>
+                <button id='options-btn'>Options</button>
             </div>
         </section>
 
-        <section id='modals'>
-            <!--OPTIONS: theme, save/load, world size-->
+        <section id='modal-container' style='display:none'>
+            <!--TUTORIAL MODAL-->
+            <div class='modal' id='tutorial-modal' style='display:none'>
+                <h2>HOW TO PLAY</h2>
+                The world of Minecraft exists for you to build it and transform it into anything and everything imaginable. Use the different tools to remove tiles from the world and add them to your inventory. Click on the tiles you have in your inventory to place them wherever you desire in your world.<br>
+                <button class='modal-button' id='got-it-btn'>Got it</button>
+            </div>
+            <!--OPTIONS MODAL-->
+            <div class='modal' id='options-modal' style='display:none'>
+                <h2>OPTIONS</h2>
+                <div>
+                    <h4>World Size</h4>
+                    <label>Height: <input type='number' id='world-height' value='20'/></label>
+                    <label>Width: <input type='number' id='world-width' value='20'/></label>
+                </div>
+                <div>
+                    <h4>Season</h4>
+                    <label><input type='radio' name='season' value='winter'>Winter</label>
+                    <label><input type='radio' name='season' value='spring' checked>Spring</label>
+                    <label><input type='radio' name='season' value='summer'>Summer</label>
+                    <label><input type='radio' name='season' value='autumn'>Autumn</label>
+                </div>
+                <button class='modal-button' id='options-save'>Save</button>
+                <button class='modal-button' id='options-cancel'>Cancel</button>
         </section>
         <section id='screen'>
             <div id='world'></div>

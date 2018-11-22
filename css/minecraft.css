@@ -32,8 +32,7 @@ body::after {
     width:240px;
 }
 
-
-#start-screen button {
+button {
     box-sizing:border-box;
     font-size:30px;
     font-family: Bloxat,sans-serif;
@@ -46,19 +45,26 @@ body::after {
     border:0;
 }
 
-#start-screen button:hover {
+button:hover {
     background-color:black;
     border:3px solid white;
     color:white;
     padding:11px;
 }
 
+.modal-button {
+    padding:0;
+}
+
+.modal-button:hover {
+    padding:0;
+}
+
 #screen{
     display:none;
 }
 
-#tutorial-modal-container{
-    display: none;
+#modal-container{
     position: fixed;
     z-index: 1;
     left: 0;
@@ -69,7 +75,7 @@ body::after {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-#tutorial-modal-content{
+.modal{
     background-color: beige;
     position: absolute;
     top:50%;
@@ -80,13 +86,20 @@ body::after {
     font-size: 20px;
     line-height: 1.6;
     width: 40%;
-    height: 50%;
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    padding:10px;
 }
+
+.modal input[type='number'] {
+    font-family:Bloxat;
+    font-size:24px;
+    width:70px;
+}
+
 
 #world{
     height: 600px;

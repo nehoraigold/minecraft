@@ -2,7 +2,7 @@
 var game = {};
 
 game.bindBtn = function () {
-
+//do we need this?
 }
 
 game.world = {};
@@ -47,16 +47,36 @@ game.init = function () {
 }
 
 game.bindStartButtons = function () {
-    $('#start-btn').click(function(){
+    $('#start-btn').click(function () {
         $('#start-screen').css("display", "none");
         game.start();
     })
-    $('#tutorial-btn').click(function(){
-        $('#tutorial-modal-container').css('display', 'block');
+    $('#tutorial-btn').click(function () {
+        game.showModal("tutorial-modal");
     })
-    $('#got-it-btn').click(function(){
-        $('#tutorial-modal-container').css('display', 'none');
+    $('.modal-button').click(function () {
+        if ($(this).attr('id') === "options-save") {
+            game.saveOptions();
+        }
+        game.hideModal();
     })
+    $('#options-btn').click(function () {
+        game.showModal('options-modal');
+    })
+}
+
+game.showModal = function (modalID) {
+    $('#modal-container').css('display', 'block');
+    $(`#${modalID}`).css('display', 'block');
+}
+
+game.hideModal = function () {
+    $('#modal-container').css('display', 'none');
+    $('.modal').css('display', 'none');
+}
+
+game.saveOptions = function() {
+
 }
 
 game.start = function () {
@@ -92,11 +112,11 @@ game.world.displayMap = function () {
     }
 }
 
-game.generateTools = function() {
+game.generateTools = function () {
     var tools = $('#tools');
     for (var tool in game.toolDefinitions) {
-        var toolDiv = $('<div/>').addClass('tool').attr('id',tool);
-        var toolImage = $('<img/>').attr('src',`./img/${tool}.png`).attr('alt',tool);
+        var toolDiv = $('<div/>').addClass('tool').attr('id', tool);
+        var toolImage = $('<img/>').attr('src', `./img/${tool}.png`).attr('alt', tool);
         var toolText = $('<span/>').text(tool);
         toolDiv.append(toolImage).append(toolText);
         tools.append(toolDiv);
@@ -183,7 +203,7 @@ game.user.alertButton = function (btn) {
 game.user.paintTile = function () {
     if (game.user.selectedTile !== null && game.user.inventory[game.user.selectedTile] > 0) {
         game.user.inventory[game.user.selectedTile]--;
-        var newTile = $('<div/>').addClass('painted-tile ' + game.user.selectedTile).data('type', game.user.selectedTile).css('display','none');
+        var newTile = $('<div/>').addClass('painted-tile ' + game.user.selectedTile).data('type', game.user.selectedTile).css('display', 'none');
         newTile.click(game.user.clearTile);
         $(this).append(newTile);
         newTile.fadeIn();
