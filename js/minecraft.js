@@ -14,13 +14,13 @@ game.setDefaultDef = function () {
     game.world.season = "autumn";
     game.world.background = [];
     game.user.inventory = {
-        rock: 10,
-        tree: 10,
-        trunk: 10,
-        grass: 10,
-        ground: 10,
-        water: 10,
-        man: 10
+        rock: 0,
+        tree: 0,
+        trunk: 0,
+        grass: 0,
+        ground: 0,
+        water: 0,
+        man: 0
     }
     game.toolDefinitions = {
         pickaxe: ['rock'],
@@ -72,6 +72,7 @@ game.saveOptions = function () {
     else if (worldSize === "big") {
         game.world.worldWidth = 40;
     }
+    $('#world').css("grid-template-columns", `repeat(${game.world.worldWidth}, 1fr)`)
     game.world.season = $('input[name="season"]:checked').val();
     game.hideModal();
 }
@@ -131,18 +132,18 @@ game.world.generateWorld = function () {
         game.world.matrix.push([]);
         for (var c = 0; c < game.world.worldWidth; c++) {
             if (r === 1) {
-                if (c === sunIndex) {
+                if (c === sunIndex && game.world.season !== "winter" && game.world.season !== "autumn") {
                     game.world.matrix[r][c] = "sun";
                 }
-                else if (c === sunIndex + 1) {
+                else if (c === sunIndex + 1 && game.world.season !== "winter" && game.world.season !== "autumn") {
                     game.world.matrix[r][c] = "sun";
                 }
             }
             else if (r === 2) {
-                if (c === sunIndex) {
+                if (c === sunIndex && game.world.season !== "winter" && game.world.season !== "autumn") {
                     game.world.matrix[r][c] = "sun";
                 }
-                else if (c === sunIndex + 1) {
+                else if (c === sunIndex + 1 && game.world.season !== "winter" && game.world.season !== "autumn") {
                     game.world.matrix[r][c] = "sun";
                 }
                 else if (c === cloudIndex) {
@@ -374,7 +375,8 @@ game.generateTools = function () {
 
 game.user.generateInventory = function () {
     for (var item in game.user.inventory) {
-        var div = $('<div />').addClass(item).addClass('selected-tile').data('type', item);
+        var div = $('<div />').addClass('selected-tile').data('type', item).attr('id', 'selected-tile-' + item);
+        div.css('background-image', `url(./img/${game.world.season}/${item}.png)`);
         var span = $('<span/>').text(game.user.inventory[item]);
         div.append(span);
         $('#inventory').append(div);
@@ -440,7 +442,7 @@ game.user.clearTile = function () {
 
 game.user.removeTile = function (tile) {
     game.user.inventory[tile.data("type")]++;
-    $(`#selected-tile-${game.user.selectedTile} span`).text(game.user.inventory[tile.data("type")]);
+    $(`#selected-tile-${tile.data("type")} span`).text(game.user.inventory[tile.data("type")]);
     tile.fadeOut();
     setTimeout(() => {
         tile.remove();
@@ -470,25 +472,7 @@ game.user.paintTile = function () {
     }
 }
 
-game.user.inventory = {
-    rock: 10,
-    tree: 10,
-    trunk: 10,
-    grass: 10,
-    ground: 10,
-    water: 10,
-    man: 10
-}
 
-game.user.generateInventory = function () {
-    for (var item in game.user.inventory) {
-        var div = $('<div />').addClass('selected-tile').data('type', item).attr('id', 'selected-tile-' + item);
-        div.css('background-image', `url(./img/${game.world.season}/${item}.png)`);
-        var span = $('<span/>').text(game.user.inventory[item]);
-        div.append(span);
-        $('#inventory').append(div);
-    }
-}
 
 
 $(document).ready(function () {
