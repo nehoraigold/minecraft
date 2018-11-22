@@ -227,6 +227,12 @@ body::after {
     border:2px solid blue;
 }
 
+@media only screen and (max-width: 1200px){
+    #tutorial-modal-content{
+        width: 70%;
+        height: 50%;
+    }
+}
 @media only screen and (max-width: 700px){
     .start-buttons {
         width:140px;
@@ -236,6 +242,9 @@ body::after {
         padding:5px 0px;
         height:30px;
         width:120px;
+    }
+    #tutorial-modal-content{
+        font-size: 12px;
     }
     #side-menu {
         top: 0;
@@ -291,7 +300,6 @@ body::after {
         height:15px;
         width:15px;
     }
-
     #world .tile:hover .painted-tile {
         height:13px;
         width:13px;
