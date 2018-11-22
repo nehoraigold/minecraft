@@ -60,6 +60,10 @@ button:hover {
     padding:0;
 }
 
+.modal .error {
+    color:red;
+}
+
 #screen{
     display:none;
 }

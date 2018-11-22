@@ -27,26 +27,27 @@
             <!--TUTORIAL MODAL-->
             <div class='modal' id='tutorial-modal' style='display:none'>
                 <h2>HOW TO PLAY</h2>
-                The world of Minecraft exists for you to build it and transform it into anything and everything imaginable. Use the different tools to remove tiles from the world and add them to your inventory. Click on the tiles you have in your inventory to place them wherever you desire in your world.<br>
+                The world of Minecraft exists for you to build it and transform it into anything and everything imaginable. Remove and place tiles using your tools and inventory, and make whichever world you desire! <br><span id='tools-explanation'></span>
                 <button class='modal-button' id='got-it-btn'>Got it</button>
             </div>
             <!--OPTIONS MODAL-->
             <div class='modal' id='options-modal' style='display:none'>
                 <h2>OPTIONS</h2>
                 <div>
-                    <h4>World Size</h4>
+                    <h4>WORLD SIZE</h4>
                     <label>Height: <input type='number' id='world-height' value='20'/></label>
                     <label>Width: <input type='number' id='world-width' value='20'/></label>
                 </div>
                 <div>
-                    <h4>Season</h4>
+                    <h4>SEASON</h4>
                     <label><input type='radio' name='season' value='winter'>Winter</label>
                     <label><input type='radio' name='season' value='spring' checked>Spring</label>
                     <label><input type='radio' name='season' value='summer'>Summer</label>
                     <label><input type='radio' name='season' value='autumn'>Autumn</label>
                 </div>
-                <button class='modal-button' id='options-save'>Save</button>
-                <button class='modal-button' id='options-cancel'>Cancel</button>
+                <div class='error' id='error-message'>
+                </div>
+                <button class='modal-button' id='options-save'>OK</button>
         </section>
         <section id='screen'>
             <div id='world'></div>
