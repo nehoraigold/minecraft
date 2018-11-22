@@ -2,12 +2,13 @@
 var game = {};
 
 game.bindBtn = function () {
-
+//do we need this?
 }
 
 game.world = {};
 game.world.WORLD_HEIGHT = 20;
 game.world.WORLD_WIDTH = 20;
+game.world.season = "spring";
 game.world.background = [];
 
 
@@ -41,11 +42,48 @@ game.bindStartButtons = function () {
         game.start();
     })
     $('#tutorial-btn').click(function () {
+<<<<<<< HEAD
         $('#tutorial-modal-container').css('display', 'block');
     })
     $('#got-it-btn').click(function () {
         $('#tutorial-modal-container').css('display', 'none');
+=======
+        game.showModal("tutorial-modal");
     })
+    $('.modal-button').click(function () {
+        if ($(this).attr('id') === "options-save") {
+            game.saveOptions();
+        }
+    })
+    $('#options-btn').click(function () {
+        game.showModal('options-modal');
+>>>>>>> 9482631da51448ece3f14bc06a40ecac69e5f97d
+    })
+}
+
+game.showModal = function (modalID) {
+    $('#modal-container').css('display', 'block');
+    $(`#${modalID}`).css('display', 'block');
+}
+
+game.hideModal = function () {
+    $('#modal-container').css('display', 'none');
+    $('.modal').css('display', 'none');
+}
+
+game.saveOptions = function() {
+    var userWidth = $('#world-width').val();
+    var userHeight = $('#world-height').val();
+    var errorMsg = $('#error-message');
+    if (userWidth < 1 || userHeight < 1) {
+        errorMsg.text("Please enter a valid height and width.")
+        return false;
+    }
+    game.world.WORLD_WIDTH = Math.floor(parseInt($('#world-width').val()));
+    game.world.WORLD_HEIGHT = Math.floor(parseInt($('#world-height').val()));
+    game.world.season = $('input[name="season"]:checked').val();
+    errorMsg.empty();
+    game.hideModal();
 }
 
 game.start = function () {
@@ -312,7 +350,10 @@ game.world.displayMap = function () {
     }
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9482631da51448ece3f14bc06a40ecac69e5f97d
 game.generateTools = function () {
     var tools = $('#tools');
     for (var tool in game.toolDefinitions) {
