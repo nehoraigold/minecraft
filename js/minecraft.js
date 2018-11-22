@@ -220,7 +220,7 @@ game.world.displayMap = function () {
     for (var i = 0; i < game.world.background.length; i++) {
         for (var j = 0; j < game.world.background[i].length; j++) {
             var tile = $('<div/>').addClass('tile');
-            if (game.world.matrix[i][j] !== "" && game.world.matrix[i][j] !== undefined) {
+            if (game.world.matrix[i][j] !== "" && game.world.matrix[i][j] != undefined) {
                 var paintedTile = $('<div/>').addClass("painted-tile");
                 paintedTile.css('background-image', `url(./img/${game.world.season}/${game.world.matrix[i][j]}.png)`);
                 paintedTile.data('type', game.world.matrix[i][j]);
