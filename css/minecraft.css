@@ -251,7 +251,7 @@ button:hover {
 }
 
 @media only screen and (max-width: 1200px){
-    #tutorial-modal-content{
+    .modal{
         width: 70%;
         height: 50%;
     }
@@ -271,7 +271,8 @@ button:hover {
         height:30px;
         width:120px;
     }
-    #tutorial-modal-content{
+    .modal{
+        width: 90%;
         font-size: 12px;
     }
     #side-menu {

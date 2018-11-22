@@ -51,6 +51,9 @@ game.bindStartButtons = function () {
     $('#options-btn').click(function () {
         game.showModal('options-modal');
     })
+    $('#start-new-game-btn').click(function() {
+        location.reload();
+    })
 }
 
 game.showModal = function (modalID) {
@@ -332,10 +335,10 @@ game.world.displayMap = function () {
     for (var i = 0; i < game.world.background.length; i++) {
         for (var j = 0; j < game.world.background[i].length; j++) {
             var tile = $('<div/>').addClass('tile');
-            if (game.world.map[i][j] !== "") {
+            if (game.world.matrix[i][j] !== "") {
                 var paintedTile = $('<div/>').addClass("painted-tile");
-                paintedTile.css('background-image',`url(./img/${game.world.season}/${game.world.map[i][j]}.png)`);
-                paintedTile.data('type', game.world.map[i][j]);
+                paintedTile.css('background-image',`url(./img/${game.world.season}/${game.world.matrix[i][j]}.png)`);
+                paintedTile.data('type', game.world.matrix[i][j]);
                 tile.append(paintedTile);
             }
             $('#world').append(tile);
