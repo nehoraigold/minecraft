@@ -198,35 +198,6 @@ button:hover {
     background-size: cover;
 }
 
-/* .cloud{
-    background-color: white;
-}
-.tree{
-    background-image: url(../img/tree.jpg);
-}
-.ground{
-    background-image: url(../img/ground.jpg);
-}
-.grass{
-    background-image: url(../img/grass.jpg);
-}
-.rock{
-    background-image: url(../img/rock.jpg);
-}
-.trunk{
-    background-image: url(../img/trunk.jpg);
-}
-.sun{
-    background-image: url(../img/sun.jpg);
-}
-.water{
-    background-image: url(../img/water.jpg);
-}
-.man{
-    background-color: rgb(136, 228, 231);
-    background-image: url(../img/man.png);
-} */
-
 .tool.alert{
     background-color: red;
 }
