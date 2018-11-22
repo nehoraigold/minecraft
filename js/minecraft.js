@@ -1,35 +1,34 @@
 
 var game = {};
-
 game.world = {};
-game.world.WORLD_HEIGHT = 20;
-game.world.WORLD_WIDTH = 20;
-game.world.season = "autumn";
-game.world.background = [];
-
-
 game.user = {};
 
-game.user.inventory = {
-    rock: 10,
-    tree: 10,
-    trunk: 10,
-    grass: 10,
-    ground: 10,
-    water: 10,
-    man: 10
-}
-
-game.toolDefinitions = {
-    pickaxe: ['rock'],
-    axe: ['tree', 'trunk'],
-    shovel: ['ground', 'grass'],
-    bucket: ['water'],
-    sword: ['man']
-}
-
 game.init = function () {
+    game.setDefaultDef()
     game.bindStartButtons()
+}
+
+game.setDefaultDef = function () {
+    game.world.worldHeight = 20;
+    game.world.worldWidth = 20;
+    game.world.season = "autumn";
+    game.world.background = [];
+    game.user.inventory = {
+        rock: 10,
+        tree: 10,
+        trunk: 10,
+        grass: 10,
+        ground: 10,
+        water: 10,
+        man: 10
+    }
+    game.toolDefinitions = {
+        pickaxe: ['rock'],
+        axe: ['tree', 'trunk'],
+        shovel: ['ground', 'grass'],
+        bucket: ['water'],
+        sword: ['man']
+    }
 }
 
 game.bindStartButtons = function () {
@@ -50,7 +49,7 @@ game.bindStartButtons = function () {
     $('#options-btn').click(function () {
         game.showModal('options-modal');
     })
-    $('#start-new-game-btn').click(function() {
+    $('#start-new-game-btn').click(function () {
         location.reload();
     })
 }
@@ -66,17 +65,14 @@ game.hideModal = function () {
 }
 
 game.saveOptions = function () {
-    var userWidth = $('#world-width').val();
-    var userHeight = $('#world-height').val();
-    var errorMsg = $('#error-message');
-    if (userWidth < 1 || userHeight < 1) {
-        errorMsg.text("Please enter a valid height and width.")
-        return false;
+    var worldSize = $('input[name="size"]:checked').val()
+    if (worldSize === "medium") {
+        game.world.worldWidth = 30;
     }
-    game.world.WORLD_WIDTH = Math.floor(parseInt($('#world-width').val()));
-    game.world.WORLD_HEIGHT = Math.floor(parseInt($('#world-height').val()));
+    else if (worldSize === "big") {
+        game.world.worldWidth = 40;
+    }
     game.world.season = $('input[name="season"]:checked').val();
-    errorMsg.empty();
     game.hideModal();
 }
 
@@ -92,9 +88,9 @@ game.start = function () {
 }
 
 game.world.generateMap = function () {
-    for (var i = 0; i < this.WORLD_HEIGHT; i++) {
+    for (var i = 0; i < this.worldHeight; i++) {
         game.world.background.push([]);
-        for (var j = 0; j < this.WORLD_WIDTH; j++) {
+        for (var j = 0; j < this.worldWidth; j++) {
             game.world.background[i].push("tile");
         }
     }
@@ -102,31 +98,38 @@ game.world.generateMap = function () {
 
 game.world.generateWorld = function () {
     game.world.matrix = [];
-    var sunIndex = Math.floor(Math.random() * (game.world.WORLD_WIDTH - 2));
+    var sunIndex = Math.floor(Math.random() * (game.world.worldWidth - 2));
     var cloudIndex;
     do {
-        cloudIndex = Math.floor(Math.random() * (game.world.WORLD_WIDTH - 5) + 1);
+        cloudIndex = Math.floor(Math.random() * (game.world.worldWidth - 5) + 1);
     }
     while (Math.abs(sunIndex - cloudIndex) < 3);
-    var rockIndex = Math.floor(Math.random() * (game.world.WORLD_WIDTH - 3) +1);
+    var rockIndex = Math.floor(Math.random() * (game.world.worldWidth - 3) + 1);
     var trunkIndex;
     do {
-        trunkIndex = Math.floor(Math.random() * (game.world.WORLD_WIDTH - 3) + 2);
+        trunkIndex = Math.floor(Math.random() * (game.world.worldWidth - 3) + 2);
     }
     while (Math.abs(rockIndex - trunkIndex) < 2);
     var waterIndex;
     do {
-        waterIndex = Math.floor(Math.random() * (game.world.WORLD_WIDTH));
+        waterIndex = Math.floor(Math.random() * (game.world.worldWidth));
     }
     while (Math.abs(rockIndex - waterIndex) < 5 || Math.abs(trunkIndex - waterIndex) < 4);
     var manIndex;
     do {
-        manIndex = Math.floor(Math.random() * (game.world.WORLD_WIDTH));
+        manIndex = Math.floor(Math.random() * (game.world.worldWidth));
     }
     while (Math.abs(waterIndex - manIndex) < 3 || Math.abs(rockIndex - manIndex) < 2 || trunkIndex !== manIndex);
-    for (var r = 0; r < game.world.WORLD_HEIGHT; r++) {
+    if (game.world.worldWidth === 30) {
+        var cloudIndex2;
+        do {
+            cloudIndex = Math.floor(Math.random() * (game.world.worldWidth - 2))
+        }
+        while (Math.abs(cloudIndex2 - sunIndex) < 2 || Math.abs(cloudIndex2 - cloudIndex) < 5)
+    }
+    for (var r = 0; r < game.world.worldHeight; r++) {
         game.world.matrix.push([]);
-        for (var c = 0; c < game.world.WORLD_WIDTH; c++) {
+        for (var c = 0; c < game.world.worldWidth; c++) {
             if (r === 1) {
                 if (c === sunIndex) {
                     game.world.matrix[r][c] = "sun";
@@ -151,6 +154,12 @@ game.world.generateWorld = function () {
                 else if (c === cloudIndex + 2) {
                     game.world.matrix[r][c] = "cloud";
                 }
+                else if (c === cloudIndex2) {
+                    game.world.matrix[r][c] = "cloud";
+                }
+                else if (c === cloudIndex2 + 1) {
+                    game.world.matrix[r][c] = "cloud";
+                }
             }
             else if (r === 3) {
                 if (c === cloudIndex - 1) {
@@ -169,6 +178,12 @@ game.world.generateWorld = function () {
                     game.world.matrix[r][c] = "cloud";
                 }
                 else if (c === cloudIndex + 4) {
+                    game.world.matrix[r][c] = "cloud";
+                }
+                else if (c === cloudIndex2 + 1) {
+                    game.world.matrix[r][c] = "cloud";
+                }
+                else if (c === cloudIndex2 + 2){
                     game.world.matrix[r][c] = "cloud";
                 }
             }
@@ -246,7 +261,7 @@ game.world.generateWorld = function () {
                 }
             }
             else if (r === 13) {
-                if (c === rockIndex -1) {
+                if (c === rockIndex - 1) {
                     game.world.matrix[r][c] = "rock";
                 }
                 else if (c === rockIndex) {
@@ -295,7 +310,7 @@ game.world.generateWorld = function () {
                 else if (c === waterIndex + 1) {
                     game.world.matrix[r][c] = "water";
                 }
-                else if (c === waterIndex + 2 && waterIndex > game.world.WORLD_WIDTH - 4) {
+                else if (c === waterIndex + 2 && waterIndex > game.world.worldWidth - 4) {
                     game.world.matrix[r][c] = "water";
                 }
                 else {
@@ -312,10 +327,10 @@ game.world.generateWorld = function () {
                 else if (c === waterIndex) {
                     game.world.matrix[r][c] = "water";
                 }
-                else if (c === waterIndex + 1 && waterIndex > game.world.WORLD_WIDTH - 4) {
+                else if (c === waterIndex + 1 && waterIndex > game.world.worldWidth - 4) {
                     game.world.matrix[r][c] = "water";
                 }
-                else if (c === waterIndex + 2 && waterIndex > game.world.WORLD_WIDTH - 4) {
+                else if (c === waterIndex + 2 && waterIndex > game.world.worldWidth - 4) {
                     game.world.matrix[r][c] = "water";
                 }
                 else {
@@ -334,9 +349,9 @@ game.world.displayMap = function () {
     for (var i = 0; i < game.world.background.length; i++) {
         for (var j = 0; j < game.world.background[i].length; j++) {
             var tile = $('<div/>').addClass('tile');
-            if (game.world.matrix[i][j] !== "") {
+            if (game.world.matrix[i][j] !== "" && game.world.matrix[i][j] !== undefined ) {
                 var paintedTile = $('<div/>').addClass("painted-tile");
-                paintedTile.css('background-image',`url(./img/${game.world.season}/${game.world.matrix[i][j]}.png)`);
+                paintedTile.css('background-image', `url(./img/${game.world.season}/${game.world.matrix[i][j]}.png)`);
                 paintedTile.data('type', game.world.matrix[i][j]);
                 tile.append(paintedTile);
             }
@@ -445,8 +460,8 @@ game.user.paintTile = function () {
     if (game.user.selectedTile !== null && game.user.inventory[game.user.selectedTile] > 0) {
         game.user.inventory[game.user.selectedTile]--;
         var newTile = $('<div/>').addClass('painted-tile').data('type', game.user.selectedTile).css({
-            'background-image':`url(./img/${game.world.season}/${game.user.selectedTile}.png)`,
-            "display":"none"
+            'background-image': `url(./img/${game.world.season}/${game.user.selectedTile}.png)`,
+            "display": "none"
         });
         newTile.click(game.user.clearTile);
         $(this).append(newTile);
@@ -467,8 +482,8 @@ game.user.inventory = {
 
 game.user.generateInventory = function () {
     for (var item in game.user.inventory) {
-        var div = $('<div />').addClass('selected-tile').data('type', item).attr('id','selected-tile-' + item);
-        div.css('background-image',`url(./img/${game.world.season}/${item}.png)`);
+        var div = $('<div />').addClass('selected-tile').data('type', item).attr('id', 'selected-tile-' + item);
+        div.css('background-image', `url(./img/${game.world.season}/${item}.png)`);
         var span = $('<span/>').text(game.user.inventory[item]);
         div.append(span);
         $('#inventory').append(div);
