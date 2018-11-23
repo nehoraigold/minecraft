@@ -84,7 +84,7 @@ button:hover {
     position: absolute;
     top:50%;
     left:50%;
-    transform: translateY(-50%) translateX(-50%);
+    transform: translateY(-50%) translateX(-35%);
     border: 2px solid black;
     font-family: Bloxat,sans-serif;
     font-size: 20px;
@@ -106,7 +106,6 @@ button:hover {
 
 
 #world{
-    height: 600px;
     width: 600px;
     border: 1px solid black;
     display: grid;
@@ -115,6 +114,13 @@ button:hover {
     top: 50%;
     left: calc( 50% - 250px );
     transform: translateY(-50%) translateX(-50%);
+}
+
+#world.big{
+    grid-template-columns: repeat(30, 1fr);
+    transform: translateY(-50%) translateX(-40%);
+    width: 900px;
+    overflow-x: scroll;
 }
 
 #side-menu {
@@ -241,6 +247,11 @@ button:hover {
         left: 40%;
         transform: translateY(-50%) translateX(-50%);
     }
+    #world.big{
+        grid-template-columns: repeat(30, 1fr);
+        width: 500px;
+        overflow-x: scroll;
+    }
 }
 @media only screen and (max-width: 780px){
     .start-buttons {
@@ -297,11 +308,17 @@ button:hover {
         font-size: 12px;
     }
     #world{
-        height: 300px;
         width: 300px;
         top: 50%;
         left: 50%;
         transform: translateY(-50%) translateX(-50%);
+    }
+    #world.big{
+        width: 300px;
+        top: 50%;
+        left: 50%;
+        transform: translateY(-50%) translateX(-50%);
+        overflow-x: scroll;
     }
     .tile{
         box-sizing:border-box;

@@ -68,8 +68,8 @@ game.saveOptions = function () {
     var worldSize = $('input[name="size"]:checked').val()
     if (worldSize === "big") {
         game.world.worldWidth = 30;
+        $('#world').addClass(worldSize);
     }
-    $('#world').css("grid-template-columns", `repeat(${game.world.worldWidth}, 1fr)`)
     game.world.season = $('input[name="season"]:checked').val();
     game.hideModal();
 }
