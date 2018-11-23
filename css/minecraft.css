@@ -146,21 +146,21 @@ button:hover {
     background-color:gray;
     position:relative;
     cursor: pointer;
+    text-align:center;
 }
 
 .tool img {
     max-height:40px;
-    position:absolute;
+    margin-top:3px;
 }
 
 .tool span {
     display:inline-block;
-    bottom:0;
-    position:absolute;
+    position:relative;
+    top:-5px;
     font-size:12px;
     font-family:Bloxat;
     text-transform: uppercase;
-    margin:auto;
 }
 
 .selected-tile {
@@ -293,9 +293,11 @@ button:hover {
         margin: 0;
     }
     .tool img {
+        margin:0;
         max-height: 40px;
     }
     .tool span {
+        top:-10px;
         font-size: 10px;
     }
     #inventory {

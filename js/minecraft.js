@@ -396,9 +396,6 @@ game.user.paintTile = function () {
     }
 }
 
-
-
-
 $(document).ready(function () {
     game.init();
 })
