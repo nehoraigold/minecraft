@@ -56,7 +56,7 @@ game.bindStartButtons = function () {
 
 game.showModal = function (modalID) {
     $('#modal-container').css('display', 'block');
-    $(`#${modalID}`).css('display', 'block');
+    $(`#${modalID}`).css('display', 'flex');
 }
 
 game.hideModal = function () {

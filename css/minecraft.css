@@ -84,7 +84,7 @@ button:hover {
     position: absolute;
     top:50%;
     left:50%;
-    transform: translateY(-50%) translateX(-35%);
+    transform: translateY(-50%) translateX(-50%);
     border: 2px solid black;
     font-family: Bloxat,sans-serif;
     font-size: 20px;
@@ -96,6 +96,10 @@ button:hover {
     justify-content: space-around;
     align-items: center;
     padding:10px;
+}
+
+.modal h4{
+    margin:18px;
 }
 
 .modal input[type='number'] {
@@ -118,7 +122,7 @@ button:hover {
 
 #world.big{
     grid-template-columns: repeat(30, 1fr);
-    transform: translateY(-50%) translateX(-40%);
+    transform: translateY(-50%) translateX(-35%);
     width: 900px;
     overflow-x: scroll;
 }
@@ -249,7 +253,8 @@ button:hover {
     }
     #world.big{
         grid-template-columns: repeat(30, 1fr);
-        width: 500px;
+        transform: translateY(-50%) translateX(-50%);
+        width: 600px;
         overflow-x: scroll;
     }
 }
@@ -264,7 +269,7 @@ button:hover {
         width:120px;
     }
     #tutorial-modal{
-        font-size: 12px;
+        font-size: 16px;
     }
     #options-modal{
         width: 90%;
@@ -308,6 +313,19 @@ button:hover {
         font-size: 12px;
     }
     #world{
+        top: 57%;
+        left: 50%;
+        transform: translateY(-50%) translateX(-50%);
+        width: 500px;
+        overflow-x: scroll;
+    }
+    #world.big{
+        width: 500px;
+    }
+}
+
+@media only screen and (max-width: 450px){
+    #world{
         width: 300px;
         top: 50%;
         left: 50%;
@@ -315,10 +333,6 @@ button:hover {
     }
     #world.big{
         width: 300px;
-        top: 50%;
-        left: 50%;
-        transform: translateY(-50%) translateX(-50%);
-        overflow-x: scroll;
     }
     .tile{
         box-sizing:border-box;
